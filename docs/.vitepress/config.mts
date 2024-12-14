@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "My Awesome Project",
   description: "A VitePress Site",
+  base: "/vue-echarts-linkage-docs/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -17,7 +18,8 @@ export default defineConfig({
         items: [
           { text: 'Markdown Examples', link: '/markdown-examples' },
           { text: 'Runtime API Examples', link: '/api-examples' },
-          { text: 'Demo1', link: '/demo1-examples' }
+          { text: '基础示例', link: '/demo/demo1' },
+          // { text: 'Demo2', link: '/demo/demo2' },
         ]
       }
     ],
@@ -25,5 +27,14 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ]
+  },
+  outDir: './.vitepress/vue-echarts-linkage-docs',
+  vite: {
+    // ssr: {
+    //   noExternal: ['vue-echarts-linkage']
+    // },
+  },
+  vue: {
+    // @vitejs/plugin-vue 选项
   }
 })

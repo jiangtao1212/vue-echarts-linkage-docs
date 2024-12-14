@@ -11,7 +11,17 @@ export default {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
     })
   },
-  enhanceApp({ app, router, siteData }) {
-    // ...
-  }
+  // enhanceApp({ app, router, siteData }) {
+  //   // ...
+  // }
+  // 没起作用，原因未知，最后使用了defineClientComponent解决了打包document环境问题
+  // async enhanceApp({ app }) {
+  //   // @ts-ignore
+  //   if (!import.meta.env.SSR) {
+  //     // const plugin = await import('vue-echarts-linkage')
+  //     const plugin = await import('../../components/echarts-linkage/demo1/index.vue')
+  //     // @ts-ignore
+  //     app.use(plugin.default)
+  //   }
+  // }
 } satisfies Theme

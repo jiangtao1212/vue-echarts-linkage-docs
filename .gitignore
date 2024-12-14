@@ -28,3 +28,8 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+# vitepress
+/docs/.vitepress/cache
+/docs/.vitepress/dist
+/docs/.vitepress/vue-echarts-linkage-docs

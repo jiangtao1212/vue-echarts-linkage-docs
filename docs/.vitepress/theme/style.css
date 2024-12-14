@@ -161,3 +161,13 @@
   width: 100%;
   max-width: 128px;
 }
+
+.echarts-linkage-container .main-container *, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+.echarts-linkage-container .main-container p {
+  line-height: 21px;
+}
