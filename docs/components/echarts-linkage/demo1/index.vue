@@ -1,9 +1,9 @@
 <script setup>
-import { defineClientComponent } from 'vitepress'
+import { defineClientComponent } from 'vitepress';
 
 const ClientComp = defineClientComponent(() => {
-  return import('./demo1.vue')
-})
+  return import('./detail.vue')
+});
 </script>
 
 <template>

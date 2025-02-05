@@ -8,14 +8,14 @@
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <!-- <div class="h-80vh overflow-y-auto"> class="h-100vh !w-98%" -->
-    <ClientOnly>
-  <VueEchartsLinkage ref="echartsLinkageRef" id="echarts-linkage-view" :cols="1" :echarts-max-count="10"
-    :empty-echart-count="2" :echarts-colors="['#000', 'blue', 'green', 'yellow', 'goldenrod', 'pink']" language="zh-cn"
-    grid-align theme="light" :is-linkage="true" :use-graphic-location="false" :is-echarts-height-change="false"
-    :echarts-height-fixed-count="2" is-show-excel-view @drop-echart="dropEchart"
-    @listener-graphic-location="listenerGraphicLocation" @delete-echart="deleteEchart"
-    @listener-excel-view="listenerExcelView" />
-    </ClientOnly>
+  <ClientOnly>
+    <VueEchartsLinkage ref="echartsLinkageRef" id="echarts-linkage-view" :cols="1" :echarts-max-count="10"
+      :empty-echart-count="2" :echarts-colors="['#000', 'blue', 'green', 'yellow', 'goldenrod', 'pink']"
+      language="zh-cn" grid-align theme="light" :is-linkage="true" :use-graphic-location="false"
+      :is-echarts-height-change="false" :echarts-height-fixed-count="2" is-show-excel-view @drop-echart="dropEchart"
+      @listener-graphic-location="listenerGraphicLocation" @delete-echart="deleteEchart"
+      @listener-excel-view="listenerExcelView" />
+  </ClientOnly>
   <!-- </div> -->
 </template>
 

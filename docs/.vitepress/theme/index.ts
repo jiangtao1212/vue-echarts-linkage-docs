@@ -1,8 +1,8 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
-import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-import './style.css'
+import { h } from 'vue';
+import type { Theme } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+import './style.css';
 
 export default {
   extends: DefaultTheme,
@@ -11,9 +11,9 @@ export default {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
     })
   },
-  // enhanceApp({ app, router, siteData }) {
-  //   // ...
-  // }
+  enhanceApp({ app, router, siteData }) {
+    // app.component('HideShow', HideShow);
+  }
   // 没起作用，原因未知，最后使用了defineClientComponent解决了打包document环境问题
   // async enhanceApp({ app }) {
   //   // @ts-ignore
