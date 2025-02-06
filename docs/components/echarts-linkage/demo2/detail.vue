@@ -2,16 +2,13 @@
   <div class="btn-container">
     <el-button type="primary" size="small" @click="addLinkageBtnClick">新增echarts实例</el-button>
     <el-button type="primary" size="small" @click="addLotEmptyLinkageBtnClick">批量新增空白echarts</el-button>
-    <el-button type="primary" size="small" @click="updateAllLinkageBtnClick">批量更新echarts</el-button>
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
 
   <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10"
-    language="zh-cn"
-    grid-align theme="light" :use-graphic-location="false" :is-echarts-height-change="false"
-    :echarts-height-fixed-count="2" is-show-excel-view @drop-echart="dropEchart"
-    @listener-graphic-location="listenerGraphicLocation" @delete-echart="deleteEchart"
+    grid-align :use-graphic-location="false" :is-echarts-height-change="false"
+    :echarts-height-fixed-count="2" @drop-echart="dropEchart"
     @listener-excel-view="listenerExcelView" />
 </template>
 
@@ -25,11 +22,6 @@ import type {
   ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
 } from 'vue-echarts-linkage'
 import "vue-echarts-linkage/dist/style.css";
-// import { defineClientComponent } from 'vitepress'
-
-// const ClientComp = defineClientComponent(() => {
-//   return import('vue-echarts-linkage')
-// })
 
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
@@ -49,27 +41,15 @@ const addLinkageBtnClick = () => {
       pieces: [{ min: 5000, max: 8000 }],
       piecesOnTooltip: { show: true, value: '自定义pieces' }
     },
-    // 多卷首尾连接设置
-    // seriesLink: {
-    //   isLinkMode: true,
-    //   head: [{ lebel: '宽度', prop: 'width' }, { lebel: '高度', prop: 'height' }],
-    //   linkName: '卷号',
-    //   linkData: [
-    //     { label: 'P202410210001', data: RandomUtil.getSeriesData(1000), custum: { width: 1000, height: 100000 },
-    //     { label: 'P202410210002', data: RandomUtil.getSeriesData(1000) },
-    //     { label: 'P202410210003', data: RandomUtil.getSeriesData(1000) },
-    //     { label: 'P202410210004', data: RandomUtil.getSeriesData(1000) },
-    //   ]
-    // },
   };
   echartsLinkageRef.value!.addEchart(oneDataType);
 }
 
 // 批量新增空白echarts，携带legend数据
 const addLotEmptyLinkageBtnClick = () => {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 1; i++) {
     const oneDataTypeArray: OneDataType[] = [];
-    for (let j = 0; j < 6; j++) {
+    for (let j = 0; j < 3; j++) {
       const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
       const oneDataType: OneDataType = {
         name: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
@@ -83,49 +63,6 @@ const addLotEmptyLinkageBtnClick = () => {
     }
     echartsLinkageRef.value!.addEchart(oneDataTypeArray);
   }
-}
-
-// 批量更新按钮
-const updateAllLinkageBtnClick = () => {
-  const allDistinctSeriesTagInfo: SeriesTagType[] = echartsLinkageRef.value?.getAllDistinctSeriesTagInfo() as SeriesTagType[];
-  console.log("allDistinctSeriesTagInfo", allDistinctSeriesTagInfo);
-  const res: { [key: string]: Array<number[]> } = {};
-  const linkCount = Math.floor(Math.random() * 3) + 1; // 首尾连接的数量
-  allDistinctSeriesTagInfo.forEach((item: SeriesTagType, index: number) => {
-    if (item.dataType === 'switch') {
-      item.seriesData = RandomUtil.getSwitchData(1000);
-    } else {
-      const seriesData = RandomUtil.getSeriesData(1000);
-      const baseLineData = JSON.parse(JSON.stringify(seriesData));
-      // for (let i = 0; i < 100; i++) {
-      //   baseLineData[i][1] = 100000;
-      // }
-      item.seriesData = seriesData;
-      item.seriesLink = {
-        isLinkMode: true,
-        linkData: getRandomCountLinkData(linkCount)
-      };
-      // item.visualMapSeries = {
-      //   pieces: [{ min: 5000, max: 8000 }],
-      //   baseLine: {
-      //     mode: 'below',
-      //     value: baseLineData,
-      //   }
-      // };
-    }
-  });
-  echartsLinkageRef.value?.updateAllEcharts(allDistinctSeriesTagInfo);
-}
-
-// 随机获取首尾连接数据
-const getRandomCountLinkData = (count: number) => {
-  const res: Array<{ label: string, data: SeriesDataType }> = [];
-  for (let i = 0; i < count; i++) {
-    const label = `P20241021000${i + 1}`;
-    const data = RandomUtil.getSeriesData(1000);
-    res.push({ label, data });
-  }
-  return res;
 }
 
 // 新增series按钮
@@ -179,28 +116,6 @@ const dropEchart = (data: DropEchartType) => {
   addLinkageSeriesCommon(seriesType, data.id);
 }
 
-// 删除echarts实例的回调事件
-const deleteEchart = (data: DeleteEchartType) => {
-  // id: 删除的实例id，remainCount: 剩余实例数量
-  const { id, remainCount } = data;
-}
-
-// 监听拖拽事件
-const initLisener = () => {
-  const dragRectLine: HTMLElement = document.querySelector('.drag-rect-line') as HTMLElement;
-  dragRectLine.addEventListener('dragstart', (e: DragEvent) => {
-    console.log("dragstart");
-    seriesType = 'line';
-    e.dataTransfer!.setData('text', "123");
-    e.dataTransfer!.dropEffect = 'move';
-  });
-}
-
-// 监听图形位置变化事件
-const listenerGraphicLocation = (data: ListenerGrapicLocationType) => {
-  console.log("listenerGraphicLocation", data);
-}
-
 // 监听excel数据视图按钮点击事件
 const listenerExcelView = (data: ListenerExcelViewType) => {
   console.log("listenerExcelView", data);
@@ -229,7 +144,6 @@ const listenerExcelView = (data: ListenerExcelViewType) => {
 }
 
 const init = () => {
-  initLisener();
   // addLotEmptyLinkageBtnClick();
   addLinkageBtnClick();
   addLinkageSeriesCommon();
@@ -279,7 +193,6 @@ onMounted(() => {
 }
 </style>
 <style>
-
 .echarts-linkage-container .main-container {
   padding-bottom: 0 !important;
 }
