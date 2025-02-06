@@ -25,6 +25,21 @@ const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;
 
+// 批量更新按钮
+const updateAllLinkageBtnClick = () => {
+  const allDistinctSeriesTagInfo: SeriesTagType[] = echartsLinkageRef.value?.getAllDistinctSeriesTagInfo() as SeriesTagType[];
+  console.log("allDistinctSeriesTagInfo", allDistinctSeriesTagInfo);
+  allDistinctSeriesTagInfo.forEach((item: SeriesTagType, index: number) => {
+    if (item.dataType === 'switch') {
+      item.seriesData = RandomUtil.getSwitchData(1000);
+    } else {
+      const seriesData = RandomUtil.getSeriesData(1000);
+      item.seriesData = seriesData;
+    }
+  });
+  echartsLinkageRef.value?.updateAllEcharts(allDistinctSeriesTagInfo);
+}
+
 // 新增按钮
 const addLinkageBtnClick = () => {
   const seriesData = RandomUtil.getSeriesData(1000);
@@ -53,21 +68,6 @@ const addLinkageBtnClick = () => {
     // },
   };
   echartsLinkageRef.value!.addEchart(oneDataType);
-}
-
-// 批量更新按钮
-const updateAllLinkageBtnClick = () => {
-  const allDistinctSeriesTagInfo: SeriesTagType[] = echartsLinkageRef.value?.getAllDistinctSeriesTagInfo() as SeriesTagType[];
-  console.log("allDistinctSeriesTagInfo", allDistinctSeriesTagInfo);
-  allDistinctSeriesTagInfo.forEach((item: SeriesTagType, index: number) => {
-    if (item.dataType === 'switch') {
-      item.seriesData = RandomUtil.getSwitchData(1000);
-    } else {
-      const seriesData = RandomUtil.getSeriesData(1000);
-      item.seriesData = seriesData;
-    }
-  });
-  echartsLinkageRef.value?.updateAllEcharts(allDistinctSeriesTagInfo);
 }
 
 // 新增series按钮
