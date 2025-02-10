@@ -4,17 +4,22 @@
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" :empty-echart-count="2" language="zh-cn"
-    grid-align theme="light" :use-graphic-location="false" :is-echarts-height-change="false"
+    grid-align :theme="theme" :use-graphic-location="false" :is-echarts-height-change="false"
     :echarts-height-fixed-count="2" is-show-excel-view @drop-echart="dropEchart"
     @listener-excel-view="listenerExcelView" />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect, watch } from "vue";
 import { RandomUtil } from "../../utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
 import type { OneDataType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
+import { type ThemeType, useTheme } from "../../../composables/useTheme";
+const { theme, themeListenerHandler } = useTheme(); // 获取实时主题
+themeListenerHandler((themeValue: ThemeType) => {
+  echartsLinkageRef.value!.changeAllEchartsTheme(themeValue);
+});
 
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';

@@ -7,14 +7,14 @@ specifiers:
   unocss: ^0.58.7
   vitepress: ^1.5.0
   vue: ^3.5.13
-  vue-echarts-linkage: ^1.7.5
+  vue-echarts-linkage: ^1.7.8
 
 dependencies:
   '@element-plus/icons-vue': 2.3.1_vue@3.5.13
   element-plus: 2.9.0_vue@3.5.13
   unocss: 0.58.9
   vue: 3.5.13
-  vue-echarts-linkage: 1.7.5_vue@3.5.13
+  vue-echarts-linkage: 1.7.8_vue@3.5.13
 
 devDependencies:
   less: 4.2.1
@@ -1769,11 +1769,11 @@ packages:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: false
 
-  /echarts/5.5.1:
-    resolution: {integrity: sha512-Fce8upazaAXUVUVsjgV6mBnGuqgO+JNDlcgF79Dksy4+wgGpQB2lmYoO4TSweFg/mZITdpGHomw/cNBJZj1icA==}
+  /echarts/5.6.0:
+    resolution: {integrity: sha512-oTbVTsXfKuEhxftHqL5xprgLoc0k7uScAwtryCgWF6hPYFLRwOUHiFmHGCBKP5NPFNkDVopOieyUqYGH8Fa3kA==}
     dependencies:
       tslib: 2.3.0
-      zrender: 5.6.0
+      zrender: 5.6.1
     dev: false
 
   /electron-to-chromium/1.5.73:
@@ -2756,14 +2756,14 @@ packages:
       '@types/sortablejs': 1.15.8
     dev: false
 
-  /vue-echarts-linkage/1.7.5_vue@3.5.13:
-    resolution: {integrity: sha512-Vlfb67//opXzUyRYShocFMyXWeYZhq8Kh22sv6ZzK25pYV5mHNwVv58WQMzRE1hDOs84GLkdnqWnHfI0sYe7XQ==}
+  /vue-echarts-linkage/1.7.8_vue@3.5.13:
+    resolution: {integrity: sha512-rQCC2VmGo2mD9RM8qUS7xDsnFfHiyhykJgSVsab42FWQtIuO+URM46BfsXk94fDyu5H8vPYLCX+m52pMgeFqQQ==}
     peerDependencies:
       vue: ^3.4.29
     dependencies:
       '@element-plus/icons-vue': 2.3.1_vue@3.5.13
       '@vueuse/core': 10.11.1_vue@3.5.13
-      echarts: 5.5.1
+      echarts: 5.6.0
       element-plus: 2.9.0_vue@3.5.13
       html2canvas: 1.4.1
       vue: 3.5.13
@@ -2820,8 +2820,8 @@ packages:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
     dev: false
 
-  /zrender/5.6.0:
-    resolution: {integrity: sha512-uzgraf4njmmHAbEUxMJ8Oxg+P3fT04O+9p7gY+wJRVxo8Ge+KmYv0WJev945EH4wFuc4OY2NLXz46FZrWS9xJg==}
+  /zrender/5.6.1:
+    resolution: {integrity: sha512-OFXkDJKcrlx5su2XbzJvj/34Q3m6PvyCZkVPHGYpcCJ52ek4U/ymZyfuV1nKE23AyBJ51E/6Yr0mhZ7xGTO4ag==}
     dependencies:
       tslib: 2.3.0
     dev: false

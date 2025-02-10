@@ -1,5 +1,10 @@
 import { defineConfig } from 'vitepress';
 import path from 'path';
+import fs from 'fs';
+// 获取 lodash 的版本号
+const packageJsonPath = path.resolve(__dirname, '../../node_modules/vue-echarts-linkage/package.json');
+// 读取 package.json 文件
+const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -10,7 +15,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Examples', link: '/markdown-examples' },
+      { text: `当前版本: ${version}`, link: `https://github.com/jiangtao1212/vue-echarts-linkage/tree/${version}` },
     ],
 
     sidebar: [
@@ -36,8 +42,16 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/jiangtao1212/vue-echarts-linkage' }
     ],
+
+    lastUpdated: {
+      text: 'Updated at',
+      formatOptions: {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      }
+    }
   },
   markdown: {
     lineNumbers: true, // 代码块显示行号

@@ -29,6 +29,11 @@ import type {
   ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
 } from 'vue-echarts-linkage'
 import "vue-echarts-linkage/dist/style.css";
+import { type ThemeType, useTheme } from "../../composables/useTheme";
+const { theme, themeListenerHandler } = useTheme(); // 获取实时主题
+themeListenerHandler((themeValue: ThemeType) => {
+  echartsLinkageRef.value!.changeAllEchartsTheme(themeValue);
+});
 
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';

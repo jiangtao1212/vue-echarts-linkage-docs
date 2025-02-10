@@ -3,6 +3,7 @@ import { h } from 'vue';
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import './style.css';
+import { useTheme } from '../../composables/useTheme';
 
 export default {
   extends: DefaultTheme,
@@ -13,6 +14,9 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     // app.component('HideShow', HideShow);
+
+    const { listenerTheme } = useTheme();
+    listenerTheme();
   }
   // 没起作用，原因未知，最后使用了defineClientComponent解决了打包document环境问题
   // async enhanceApp({ app }) {
