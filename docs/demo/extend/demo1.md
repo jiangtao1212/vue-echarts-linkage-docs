@@ -1,20 +1,18 @@
 <script setup>
-import LinkageDemo1 from '@/components/echarts-linkage/demo1/index.vue';
+import LinkageDemo1 from '@/components/echarts-linkage/demo-extend/demo1/index.vue';
 </script>
 
 # 示例说明
 
-vue-echarts-linkage 联动组件的基础示例。
+vue-echarts-linkage 联动组件的拓展示例。
 
-> 注意：基础示例包含了最基本的联动功能，包括：
-> 1. 拖拽新增数据
-> 2. 联动效果展示
-> 3. 联动事件监听
-> * 核心调用方法：`addEchartSeries: (id: string, data: OneDataType) => void` 新增echarts系列
+> 注意：拓展示例包含的功能，包括：
+> 1. 基线数据与实际数据对齐比较
+> * 关键：`visualMapSeries` 属性
 
-## 1. 拖拽新增数据
+## 1. 基线比较
 
-通过拖拽新增数据，可以实现数据的动态添加，上下对齐，联动效果展示。
+通过基线数据与实际数据对齐比较，可以直观的看到数据之间的差异。
 
 <LinkageDemo1 />
 
@@ -26,7 +24,7 @@ vue-echarts-linkage 联动组件的基础示例。
 </details> -->
 
 ::: details 点我查看代码
-<<< @/components/echarts-linkage/demo1/detail.vue
+<<< @/components/echarts-linkage/demo-extend/demo1/detail.vue{3,4,55-60,76-88}
 :::
 
 

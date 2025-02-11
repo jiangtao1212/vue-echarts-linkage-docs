@@ -33,9 +33,9 @@ export default defineConfig({
             { text: '批量清除', link: '/demo/base/demo5' },
           ]},
           { text: '拓展示例', items: [ 
-            { text: '自定义配置', link: '/demo/extend/demo1' },
-            { text: '自定义主题', link: '/demo/extend/demo2' },
-            { text: '自定义组件', link: '/demo/extend/demo3' },
+            { text: '基线比较', link: '/demo/extend/demo1' },
+            { text: '图片下载', link: '/demo/extend/demo2' },
+            { text: '预留位', link: '/demo/extend/demo3' },
           ]},
         ]
       }

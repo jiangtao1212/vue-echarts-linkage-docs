@@ -1,5 +1,5 @@
 <script setup>
-import LinkageDemo5 from '@/components/echarts-linkage/demo5/index.vue';
+import LinkageDemo5 from '@/components/echarts-linkage/demo-base/demo5/index.vue';
 </script>
 
 # 示例说明
@@ -18,7 +18,7 @@ vue-echarts-linkage 联动组件的基础示例。
 <LinkageDemo5 />
 
 ::: details 点我查看代码
-<<< @/components/echarts-linkage/demo5/detail.vue{3,6,32-34,37-39}
+<<< @/components/echarts-linkage/demo-base/demo5/detail.vue{3,6,37-39,42-44}
 :::
 
 ## More docs
