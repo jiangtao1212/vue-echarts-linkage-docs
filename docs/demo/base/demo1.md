@@ -1,5 +1,6 @@
 <script setup>
 import LinkageDemo1 from '@/components/echarts-linkage/demo-base/demo1/index.vue';
+// import LinkageDemo1 from '../../components/echarts-linkage/demo-base/demo1/index.vue';
 </script>
 
 # 示例说明

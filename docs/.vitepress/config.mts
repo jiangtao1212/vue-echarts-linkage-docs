@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { analyzer } from 'vite-bundle-analyzer';
 import path from 'path';
 import fs from 'fs';
 // 获取 lodash 的版本号
@@ -45,13 +46,13 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/jiangtao1212/vue-echarts-linkage' }
     ],
 
-    lastUpdated: {
-      text: 'Updated at',
-      formatOptions: {
-        dateStyle: 'full',
-        timeStyle: 'medium'
-      }
-    }
+    // lastUpdated: {
+    //   text: 'Updated at',
+    //   formatOptions: {
+    //     dateStyle: 'full',
+    //     timeStyle: 'medium'
+    //   }
+    // }
   },
   markdown: {
     lineNumbers: true, // 代码块显示行号
@@ -64,6 +65,26 @@ export default defineConfig({
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '../'), // 根据项目结构调整路径
+      },
+    },
+    plugins: [
+      // ...your plugin
+      // analyzer()
+    ],
+    build: {
+      rollupOptions: {
+        output: {
+          // manualChunks(id) {
+          //   if (id.includes('node_modules')) {
+          //     // 将来自 node_modules 的大库分割成独立的 chunk
+          //     return id.split('node_modules/')[1].split('/')[0];
+          //   }
+          // },
+          // manualChunks: {
+          //   vue_echarts_linkage: ['vue-echarts-linkage'],
+          //   vue_echarts_linkage_style: ['vue-echarts-linkage/dist/style.css'],
+          // }
+        },
       },
     },
   },

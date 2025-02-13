@@ -13,14 +13,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { ElButton } from 'element-plus';
-import { RandomUtil } from "../../../utils/index";
+import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
 import type {
   OneDataType, SeriesTagType, DropEchartType, DeleteEchartType,
   ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
 } from 'vue-echarts-linkage'
 import "vue-echarts-linkage/dist/style.css";
-import { type ThemeType, useTheme } from "../../../../composables/useTheme";
+import { type ThemeType, useTheme } from "@/composables/useTheme";
 const { theme, themeListenerHandler } = useTheme(); // 获取实时主题
 themeListenerHandler((themeValue: ThemeType) => {
   echartsLinkageRef.value!.changeAllEchartsTheme(themeValue);

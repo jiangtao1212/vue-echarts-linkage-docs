@@ -1,46 +1,37 @@
 {
-  "hash": "5b48e543",
-  "configHash": "b070251a",
-  "lockfileHash": "82c9f99a",
-  "browserHash": "e53a6142",
+  "hash": "deb72e30",
+  "configHash": "5b63fad6",
+  "lockfileHash": "1d5a8932",
+  "browserHash": "b420f4cd",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/.pnpm/vue@3.5.13/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "aef221df",
+      "fileHash": "c10c9b24",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/.pnpm/@vue+devtools-api@7.6.7/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "b86d9c57",
+      "fileHash": "87773a63",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/.pnpm/@vueuse+core@11.3.0_vue@3.5.13/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "69c23378",
+      "fileHash": "8d4020d3",
       "needsInterop": false
     },
     "vue-echarts-linkage": {
-      "src": "../../../../node_modules/.pnpm/vue-echarts-linkage@1.7.8_vue@3.5.13/node_modules/vue-echarts-linkage/dist/vue-echarts-linkage.js",
+      "src": "../../../../node_modules/.pnpm/vue-echarts-linkage@1.7.9-bate.4_vue@3.5.13/node_modules/vue-echarts-linkage/dist/vue-echarts-linkage.js",
       "file": "vue-echarts-linkage.js",
-      "fileHash": "4ba0204e",
-      "needsInterop": false
-    },
-    "element-plus": {
-      "src": "../../../../node_modules/.pnpm/element-plus@2.9.0_vue@3.5.13/node_modules/element-plus/es/index.mjs",
-      "file": "element-plus.js",
-      "fileHash": "3c1270e0",
+      "fileHash": "d2a184ad",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-ZHZCPIQP": {
-      "file": "chunk-ZHZCPIQP.js"
-    },
-    "chunk-4G75K345": {
-      "file": "chunk-4G75K345.js"
+    "chunk-W6NCXP4J": {
+      "file": "chunk-W6NCXP4J.js"
     },
     "chunk-2WLDGLOW": {
       "file": "chunk-2WLDGLOW.js"

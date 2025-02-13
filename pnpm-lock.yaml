@@ -2,23 +2,27 @@ lockfileVersion: 5.4
 
 specifiers:
   '@element-plus/icons-vue': ^2.3.1
+  '@types/node': ^22.13.1
   element-plus: ^2.9.0
   less: ^4.2.1
   unocss: ^0.58.7
+  vite-bundle-analyzer: ^0.17.0
   vitepress: ^1.5.0
   vue: ^3.5.13
-  vue-echarts-linkage: ^1.7.8
+  vue-echarts-linkage: 1.7.10-beta.1
 
 dependencies:
   '@element-plus/icons-vue': 2.3.1_vue@3.5.13
   element-plus: 2.9.0_vue@3.5.13
   unocss: 0.58.9
   vue: 3.5.13
-  vue-echarts-linkage: 1.7.8_vue@3.5.13
+  vue-echarts-linkage: 1.7.10-beta.1_vue@3.5.13
 
 devDependencies:
+  '@types/node': 22.13.1
   less: 4.2.1
-  vitepress: 1.5.0_less@4.2.1
+  vite-bundle-analyzer: 0.17.0
+  vitepress: 1.5.0_b2k22rc75767eseqoieuhtvvmy
 
 packages:
 
@@ -1096,6 +1100,12 @@ packages:
     resolution: {integrity: sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg==}
     dev: true
 
+  /@types/node/22.13.1:
+    resolution: {integrity: sha512-jK8uzQlrvXqEU91UxiK5J7pKHyzgnI1Qnl0QDHIgVGuolJhRb9EEl28Cj9b3rGR8B2lhFCtvIm5os8lFnO/1Ew==}
+    dependencies:
+      undici-types: 6.20.0
+    dev: true
+
   /@types/sortablejs/1.15.8:
     resolution: {integrity: sha512-b79830lW+RZfwaztgs1aVPgbasJ8e7AXtZYHTELNXZPsERt4ymJdjV4OccDbHQAvHrCcFpbF78jkm0R6h/pZVg==}
     dev: false
@@ -1332,7 +1342,7 @@ packages:
       vite: ^5.0.0 || ^6.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.4.11_less@4.2.1
+      vite: 5.4.11_b2k22rc75767eseqoieuhtvvmy
       vue: 3.5.13
     dev: true
 
@@ -2532,6 +2542,10 @@ packages:
       jiti: 1.21.6
     dev: false
 
+  /undici-types/6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+    dev: true
+
   /unist-util-is/6.0.0:
     resolution: {integrity: sha512-2qCTHimwdxLfz+YzdGfkqNlH0tLi9xjTnHddPmJwtIG9MGsdbutfTc4P+haPD7l7Cjxf/WZj+we5qfVPvvxfYw==}
     dependencies:
@@ -2633,7 +2647,12 @@ packages:
       vfile-message: 4.0.2
     dev: true
 
-  /vite/5.4.11_less@4.2.1:
+  /vite-bundle-analyzer/0.17.0:
+    resolution: {integrity: sha512-pSQng2NuhPo13hdSFcjW/Kjq8hmdfzCkJhWvAP5g98WbqZvy1k3Z+cpDxD9oxdNqOHHQFnEAIHR/MY6El1NnHA==}
+    hasBin: true
+    dev: true
+
+  /vite/5.4.11_b2k22rc75767eseqoieuhtvvmy:
     resolution: {integrity: sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -2664,6 +2683,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 22.13.1
       esbuild: 0.21.5
       less: 4.2.1
       postcss: 8.4.49
@@ -2672,7 +2692,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress/1.5.0_less@4.2.1:
+  /vitepress/1.5.0_b2k22rc75767eseqoieuhtvvmy:
     resolution: {integrity: sha512-q4Q/G2zjvynvizdB3/bupdYkCJe2umSAMv9Ju4d92E6/NXJ59z70xB0q5p/4lpRyAwflDsbwy1mLV9Q5+nlB+g==}
     hasBin: true
     peerDependencies:
@@ -2700,7 +2720,7 @@ packages:
       mark.js: 8.11.1
       minisearch: 7.1.1
       shiki: 1.24.2
-      vite: 5.4.11_less@4.2.1
+      vite: 5.4.11_b2k22rc75767eseqoieuhtvvmy
       vue: 3.5.13
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -2756,8 +2776,8 @@ packages:
       '@types/sortablejs': 1.15.8
     dev: false
 
-  /vue-echarts-linkage/1.7.8_vue@3.5.13:
-    resolution: {integrity: sha512-rQCC2VmGo2mD9RM8qUS7xDsnFfHiyhykJgSVsab42FWQtIuO+URM46BfsXk94fDyu5H8vPYLCX+m52pMgeFqQQ==}
+  /vue-echarts-linkage/1.7.10-beta.1_vue@3.5.13:
+    resolution: {integrity: sha512-l5ORwuCTiZb3B3jTVwGrMuJJQ/kNyeqj2QQl2j+baiS+ZSl8NvZeuwnnkMjWL4APyX7USSPRgwaU+jnhKzY3HA==}
     peerDependencies:
       vue: ^3.4.29
     dependencies:
