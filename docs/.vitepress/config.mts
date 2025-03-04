@@ -32,12 +32,20 @@ export default defineConfig({
             { text: '批量更新', link: '/demo/base/demo3' },
             { text: '批量替换', link: '/demo/base/demo4' },
             { text: '批量清除', link: '/demo/base/demo5' },
+            { text: '基础联动', link: '/demo/base/demo6' },
+            { text: '高度自适应', link: '/demo/base/demo7' },
           ]},
           { text: '拓展示例', items: [ 
             { text: '基线比较', link: '/demo/extend/demo1' },
             { text: '图片下载', link: '/demo/extend/demo2' },
-            { text: '预留位', link: '/demo/extend/demo3' },
+            { text: '图形定位', link: '/demo/extend/demo3' },
+            { text: '开关量', link: '/demo/extend/demo4' },
+            { text: '合并图例', link: '/demo/extend/demo5' },
+            { text: '拓展属性', link: '/demo/extend/demo6' },
+            { text: '分组联动', link: '/demo/extend/demo7' },
+            { text: '预留位', link: '/demo/extend/demo8' },
           ]},
+          { text: '详细说明', link: '/demo/summary/readme.md' }
         ]
       }
     ],
@@ -46,13 +54,13 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/jiangtao1212/vue-echarts-linkage' }
     ],
 
-    // lastUpdated: {
-    //   text: 'Updated at',
-    //   formatOptions: {
-    //     dateStyle: 'full',
-    //     timeStyle: 'medium'
-    //   }
-    // }
+    lastUpdated: {
+      text: 'Updated at',
+      formatOptions: {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      }
+    }
   },
   markdown: {
     lineNumbers: true, // 代码块显示行号

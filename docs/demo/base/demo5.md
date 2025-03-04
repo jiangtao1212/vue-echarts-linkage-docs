@@ -11,9 +11,9 @@ vue-echarts-linkage 联动组件的基础示例。
 > 2. `clearAllEchartsData: (mode: 'clear' | 'delete') => Promise<void>` 
 清空所有echarts数据：当mode为'clear'（默认值）时，清除数据保留当前空白echarts实例；当mode为'delete'时，删除当前实例。
 
-## 1. 批量更新数据
+## 1. 批量清除数据
 
-清空所有数据，更新图表。
+* 清空所有数据，更新图表。
 
 <LinkageDemo5 />
 

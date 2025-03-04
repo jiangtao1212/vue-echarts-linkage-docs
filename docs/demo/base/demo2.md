@@ -13,7 +13,7 @@ vue-echarts-linkage 联动组件的基础示例。
 
 ## 1. 新增echarts实例
 
-新增echarts实例，并且携带数据。
+* 新增echarts实例，并且携带数据。
 
 <LinkageDemo2 />
 
