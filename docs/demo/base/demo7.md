@@ -1,5 +1,5 @@
 <script setup>
-import LinkageDemo6 from '@/components/echarts-linkage/demo-base/demo6/index.vue';
+import LinkageDemo7 from '@/components/echarts-linkage/demo-base/demo7/index.vue';
 </script>
 
 # 示例说明
@@ -7,18 +7,17 @@ import LinkageDemo6 from '@/components/echarts-linkage/demo-base/demo6/index.vue
 vue-echarts-linkage 联动组件的基础示例。
 
 > 注意：基础示例包含了最基本的联动功能，包括：
-> 1. echarts实例高度设置自适应和固定值。
-> 2. `:is-echarts-height-change="true"` 设置为true，echarts实例高度自适应；设置为false，echarts实例高度固定
-> 3. `:echarts-height-fixed-count="2"` 配合 `is-echarts-height-change` 属性值为false时使用，echarts高度固定数量
+> 1. Echarts各实例联动功能。
+> 2. `:is-linkage="false"` 设置为true，Echarts各实例设置联动；设置为false，Echarts各实例设置不联动
 
-## 1. 实例高度自适应
+## 1. 基础联动
 
-* Echarts实例高度自适应。
+* Echarts各实例联动，内部使用的是echarts实例的group属性，设置group属性为同一个值，即可实现联动。
 
-<LinkageDemo6 />
+<LinkageDemo7 />
 
 ::: details 点我查看代码
-<<< @/components/echarts-linkage/demo-base/demo6/detail.vue{10}
+<<< @/components/echarts-linkage/demo-base/demo7/detail.vue{12}
 :::
 
 ## More docs

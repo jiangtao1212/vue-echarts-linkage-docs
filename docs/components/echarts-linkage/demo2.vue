@@ -11,7 +11,7 @@
   <ClientOnly>
     <VueEchartsLinkage ref="echartsLinkageRef" id="echarts-linkage-view" :cols="1" :echarts-max-count="10"
       :empty-echart-count="2" :echarts-colors="['#000', 'blue', 'green', 'yellow', 'goldenrod', 'pink']"
-      language="zh-cn" grid-align theme="light" :is-linkage="true" :use-graphic-location="false"
+      language="zh-cn" grid-align :theme="theme" :is-linkage="true" :use-graphic-location="false"
       :is-echarts-height-change="false" :echarts-height-fixed-count="2" is-show-excel-view @drop-echart="dropEchart"
       @listener-graphic-location="listenerGraphicLocation" @delete-echart="deleteEchart"
       @listener-excel-view="listenerExcelView" />
@@ -29,12 +29,9 @@ import type {
   ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
 } from 'vue-echarts-linkage'
 import "vue-echarts-linkage/dist/style.css";
-import { type ThemeType, useTheme } from "@/composables/useTheme";
-const { theme, themeListenerHandler } = useTheme(); // 获取实时主题
-themeListenerHandler((themeValue: ThemeType) => {
-  echartsLinkageRef.value!.changeAllEchartsTheme(themeValue);
-});
+import { MyTheme } from "@/composables/MyTheme";
 
+const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;

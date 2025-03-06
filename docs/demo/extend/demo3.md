@@ -18,7 +18,7 @@ vue-echarts-linkage 联动组件的拓展示例。
 <LinkageDemo3 />
 
 ::: details 点我查看代码
-<<< @/components/echarts-linkage/demo-extend/demo3/detail.vue{9,36-38}
+<<< @/components/echarts-linkage/demo-extend/demo3/detail.vue{9,33-35}
 :::
 
 ## More docs

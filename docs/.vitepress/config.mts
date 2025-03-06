@@ -32,8 +32,9 @@ export default defineConfig({
             { text: '批量更新', link: '/demo/base/demo3' },
             { text: '批量替换', link: '/demo/base/demo4' },
             { text: '批量清除', link: '/demo/base/demo5' },
-            { text: '基础联动', link: '/demo/base/demo6' },
-            { text: '高度自适应', link: '/demo/base/demo7' },
+            { text: '主题切换', link: '/demo/base/demo6' },
+            { text: '基础联动', link: '/demo/base/demo7' },
+            { text: '高度自适应', link: '/demo/base/demo8' },
           ]},
           { text: '拓展示例', items: [ 
             { text: '基线比较', link: '/demo/extend/demo1' },

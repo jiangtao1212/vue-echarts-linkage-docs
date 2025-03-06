@@ -16,12 +16,9 @@ import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
 import type { OneDataType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
-import { type ThemeType, useTheme } from "@/composables/useTheme";
-const { theme, themeListenerHandler } = useTheme(); // 获取实时主题
-themeListenerHandler((themeValue: ThemeType) => {
-  echartsLinkageRef.value!.changeAllEchartsTheme(themeValue);
-});
+import { MyTheme } from "@/composables/MyTheme";
 
+const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let btnMode = 'base-mode' as 'base-mode' | 'pieces-mode';

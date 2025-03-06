@@ -4,7 +4,7 @@
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
-  <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align theme="light"
+  <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align :theme="theme"
     :use-graphic-location="false" 
     :is-echarts-height-change="false" 
     :echarts-height-fixed-count="2"
@@ -22,12 +22,9 @@ import type {
   ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
 } from 'vue-echarts-linkage'
 import "vue-echarts-linkage/dist/style.css";
-import { type ThemeType, useTheme } from "@/composables/useTheme";
-const { theme, themeListenerHandler } = useTheme(); // 获取实时主题
-themeListenerHandler((themeValue: ThemeType) => {
-  echartsLinkageRef.value!.changeAllEchartsTheme(themeValue);
-});
+import { MyTheme } from "@/composables/MyTheme";
 
+const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;

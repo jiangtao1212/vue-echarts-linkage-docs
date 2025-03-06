@@ -16,5 +16,5 @@ pnpm run docs:build
 ```
 
 ## 2. 详细文档
-* [vue-echarts-linkage](http://yunduoer.fun/vue-echarts-linkage-docs/)
+* [详细文档](http://yunduoer.fun/vue-echarts-linkage-docs/)
 
