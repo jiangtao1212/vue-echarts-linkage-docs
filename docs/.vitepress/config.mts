@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress';
-import { analyzer } from 'vite-bundle-analyzer';
 import path from 'path';
 import fs from 'fs';
 // 获取 lodash 的版本号
@@ -9,23 +8,31 @@ const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "My Awesome Project",
-  description: "A VitePress Site",
+  title: "vue-echarts-linkage",
+  description: "基于Vue3的Echarts联动组件",
+  head: [['link', { rel: 'icon', href: '/vue-echarts-linkage-docs/linkage.svg' }]],
   base: "/vue-echarts-linkage-docs/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    logo: "/linkage.svg",
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' },
+      { text: '首页', link: '/' },
+      { text: '介绍', link: '/demo/guide/readme.md' },
       { text: `当前版本: ${version}`, link: `https://github.com/jiangtao1212/vue-echarts-linkage/tree/${version}` },
     ],
 
     sidebar: [
       {
-        text: 'Examples',
+        text: '介绍',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
+          { text: '使用说明', link: '/demo/guide/readme.md' },
+        ]
+      },
+      {
+        text: '示例',
+        items: [
+          // { text: 'Markdown Examples', link: '/markdown-examples' },
+          // { text: 'Runtime API Examples', link: '/api-examples' },
           { text: '基础示例', items: [ 
             { text: '拖拽新增', link: '/demo/base/demo1' },
             { text: '新增实例', link: '/demo/base/demo2' },
@@ -44,11 +51,18 @@ export default defineConfig({
             { text: '合并图例', link: '/demo/extend/demo5' },
             { text: '拓展属性', link: '/demo/extend/demo6' },
             { text: '分组联动', link: '/demo/extend/demo7' },
-            { text: '预留位', link: '/demo/extend/demo8' },
+            // { text: '预留位', link: '/demo/extend/demo8' },
           ]},
-          { text: '详细说明', link: '/demo/summary/readme.md' }
         ]
-      }
+      }, 
+      {
+        text: 'API',
+        link: '/demo/summary/api.md'
+      },
+      {
+        text: '视频演示',
+        link: '/demo/summary/video.md'
+      },
     ],
 
     socialLinks: [
