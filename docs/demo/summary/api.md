@@ -1,4 +1,4 @@
-# vue-echarts-linkage
+# vue-echarts-linkage API说明
 
 ## 1. 组件属性
 | 属性名 | 类型 | 说明 | 默认值 |

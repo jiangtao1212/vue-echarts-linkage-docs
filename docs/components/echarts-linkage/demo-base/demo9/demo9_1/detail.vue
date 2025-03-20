@@ -1,15 +1,18 @@
 <template>
   <div class="btn-container">
-    <el-button type="primary" size="small" @click="clearAllEchartsData">批量清除echarts数据</el-button>
-    <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
-    <div style="width: 5vw;"></div>
-    <el-button type="primary" size="small" @click="clearAllEchartsData1">批量清除实例</el-button>
     <el-button type="primary" size="small" @click="addLinkageBtnClick">新增echarts实例</el-button>
+    <el-button type="primary" size="small" @click="addLotEmptyLinkageBtnClick">批量新增空白echarts</el-button>
+    <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
-  <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align :theme="theme"
-    :use-graphic-location="false" :is-echarts-height-change="false" :echarts-height-fixed-count="2"
-    @drop-echart="dropEchart" @listener-excel-view="listenerExcelView" />
+  <VueEchartsLinkage 
+    ref="echartsLinkageRef" 
+    :cols="2" 
+    :is-echarts-height-change="false"
+    :echarts-max-count="10"
+    grid-align :theme="theme" :use-graphic-location="false" 
+    :echarts-height-fixed-count="2" @drop-echart="dropEchart"
+    @listener-excel-view="listenerExcelView" />
 </template>
 
 <script setup lang="ts">
@@ -29,16 +32,6 @@ const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;
 
-// 批量清除echarts实例数据
-const clearAllEchartsData = () => {
-  echartsLinkageRef.value?.clearAllEchartsData();
-}
-
-// 批量清除echarts实例数据
-const clearAllEchartsData1 = () => {
-  echartsLinkageRef.value?.clearAllEchartsData('delete');
-}
-
 // 新增按钮
 const addLinkageBtnClick = () => {
   const seriesData = RandomUtil.getSeriesData(1000);
@@ -53,20 +46,28 @@ const addLinkageBtnClick = () => {
       pieces: [{ min: 5000, max: 8000 }],
       piecesOnTooltip: { show: true, value: '自定义pieces' }
     },
-    // 多卷首尾连接设置
-    // seriesLink: {
-    //   isLinkMode: true,
-    //   head: [{ lebel: '宽度', prop: 'width' }, { lebel: '高度', prop: 'height' }],
-    //   linkName: '卷号',
-    //   linkData: [
-    //     { label: 'P202410210001', data: RandomUtil.getSeriesData(1000), custum: { width: 1000, height: 100000 },
-    //     { label: 'P202410210002', data: RandomUtil.getSeriesData(1000) },
-    //     { label: 'P202410210003', data: RandomUtil.getSeriesData(1000) },
-    //     { label: 'P202410210004', data: RandomUtil.getSeriesData(1000) },
-    //   ]
-    // },
   };
   echartsLinkageRef.value!.addEchart(oneDataType);
+}
+
+// 批量新增空白echarts，携带legend数据
+const addLotEmptyLinkageBtnClick = () => {
+  for (let i = 0; i < 1; i++) {
+    const oneDataTypeArray: OneDataType[] = [];
+    for (let j = 0; j < 3; j++) {
+      const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+      const oneDataType: OneDataType = {
+        name: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        type: 'line',
+        seriesData: [],
+        customData: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        xAxisName: '[m]',
+        yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
+      };
+      oneDataTypeArray.push(oneDataType);
+    }
+    echartsLinkageRef.value!.addEchart(oneDataTypeArray);
+  }
 }
 
 // 新增series按钮
@@ -89,6 +90,24 @@ const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
     yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
     type: type,
     seriesData: seriesData,
+    // visualMapSeries: {
+    //   pieces: [{ min: 5000, max: 8000 }],
+    //   baseLine: {
+    //     mode: 'below',
+    //     value: baseLineData,
+    //     isShowOnToolTip: true,
+    //   }
+    // },
+    // 多卷首尾连接设置
+    // seriesLink: {
+    //   isLinkMode: true,
+    //   linkData: [
+    //     { label: 'P202410210001', data: RandomUtil.getSeriesData(1000) },
+    //     { label: 'P202410210002', data: RandomUtil.getSeriesData(1000) },
+    //     { label: 'P202410210003', data: RandomUtil.getSeriesData(1000) },
+    //     { label: 'P202410210004', data: RandomUtil.getSeriesData(1000) },
+    //   ]
+    // },
   };
   if (switchFlag) {
     oneDataType.dataType = 'switch';
@@ -132,6 +151,8 @@ const listenerExcelView = (data: ListenerExcelViewType) => {
 const init = () => {
   addLinkageBtnClick();
   addLinkageBtnClick();
+  addLinkageBtnClick();
+  addLinkageBtnClick();
 }
 
 onMounted(() => {
@@ -169,6 +190,7 @@ onMounted(() => {
   width: 100%;
   height: 60vh;
 }
+
 </style>
 <style scoped lang="less">
 .el-button {

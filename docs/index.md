@@ -8,11 +8,20 @@ hero:
   tagline: 一个基于Vue3的Echarts联动组件
   actions:
     - theme: brand
+      text: 介绍
+      link: /demo/guide/readme
+    - theme: alt
       text: 基础使用
       link: /demo/base/demo1
     - theme: alt
       text: 进阶使用
       link: /demo/extend/demo1
+    - theme: alt
+      text: API说明
+      link: /demo/summary/api.md
+    - theme: alt
+      text: 视频演示
+      link: /demo/summary/video.md
 
 features:
   - icon: 🎯

@@ -17,7 +17,7 @@ export default defineConfig({
     logo: "/linkage.svg",
     nav: [
       { text: '首页', link: '/' },
-      { text: '介绍', link: '/demo/guide/readme.md' },
+      // { text: '介绍', link: '/demo/guide/readme.md' },
       { text: `当前版本: ${version}`, link: `https://github.com/jiangtao1212/vue-echarts-linkage/tree/${version}` },
     ],
 
@@ -37,11 +37,15 @@ export default defineConfig({
             { text: '拖拽新增', link: '/demo/base/demo1' },
             { text: '新增实例', link: '/demo/base/demo2' },
             { text: '批量更新', link: '/demo/base/demo3' },
-            { text: '批量替换', link: '/demo/base/demo4' },
-            { text: '批量清除', link: '/demo/base/demo5' },
+            { text: '批量清除', link: '/demo/base/demo4' },
+            { text: '模版更新', link: '/demo/base/demo5' },
             { text: '主题切换', link: '/demo/base/demo6' },
             { text: '基础联动', link: '/demo/base/demo7' },
             { text: '高度自适应', link: '/demo/base/demo8' },
+            { text: '多列显示', collapsed: true, items: [
+              { text: '固定高度', link: '/demo/base/demo9/demo9_1' },
+              { text: '自适应高度', link: '/demo/base/demo9/demo9_2' },
+            ]},
           ]},
           { text: '拓展示例', items: [ 
             { text: '基线比较', link: '/demo/extend/demo1' },
@@ -56,7 +60,7 @@ export default defineConfig({
         ]
       }, 
       {
-        text: 'API',
+        text: 'API说明',
         link: '/demo/summary/api.md'
       },
       {

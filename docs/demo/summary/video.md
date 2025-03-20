@@ -1,4 +1,4 @@
-# vue-echarts-linkage
+# vue-echarts-linkage 视频演示
 
 ## 1. demo演示
 > 以下为组件的部分demo演示，可以点击左侧导航栏的示例查看具体效果。
