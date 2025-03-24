@@ -19,7 +19,7 @@ vue-echarts-linkage 联动组件的基础示例。
 <LinkageDemo91 />
 
 ::: details 点我查看代码
-<<< @/components/echarts-linkage/demo-base/demo9/demo9_1/index.vue{10, 11}
+<<< @/components/echarts-linkage/demo-base/demo9/demo9_1/detail.vue{10,11}
 :::
 
 

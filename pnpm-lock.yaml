@@ -9,19 +9,19 @@ specifiers:
   vite-bundle-analyzer: ^0.17.0
   vitepress: ^1.5.0
   vue: ^3.5.13
-  vue-echarts-linkage: 2.0.0-beta.5
+  vue-echarts-linkage: 2.0.0-beta.6
 
 dependencies:
   '@element-plus/icons-vue': 2.3.1_vue@3.5.13
   element-plus: 2.9.0_vue@3.5.13
   unocss: 0.58.9
   vue: 3.5.13
-  vue-echarts-linkage: 2.0.0-beta.5_vue@3.5.13
+  vue-echarts-linkage: 2.0.0-beta.6_vue@3.5.13
 
 devDependencies:
   '@types/node': 22.13.1
   less: 4.2.1
-  vite-bundle-analyzer: 0.17.0
+  vite-bundle-analyzer: 0.17.3
   vitepress: 1.5.0_b2k22rc75767eseqoieuhtvvmy
 
 packages:
@@ -2647,8 +2647,8 @@ packages:
       vfile-message: 4.0.2
     dev: true
 
-  /vite-bundle-analyzer/0.17.0:
-    resolution: {integrity: sha512-pSQng2NuhPo13hdSFcjW/Kjq8hmdfzCkJhWvAP5g98WbqZvy1k3Z+cpDxD9oxdNqOHHQFnEAIHR/MY6El1NnHA==}
+  /vite-bundle-analyzer/0.17.3:
+    resolution: {integrity: sha512-auy3vYMXErXYf78e12cAaaD7JmGaTa0DOipKRKx83KSR4kEttJ416HH/OmmzjWa0XI2AH5f21ax+WkVFPsB0fw==}
     hasBin: true
     dev: true
 
@@ -2776,8 +2776,8 @@ packages:
       '@types/sortablejs': 1.15.8
     dev: false
 
-  /vue-echarts-linkage/2.0.0-beta.5_vue@3.5.13:
-    resolution: {integrity: sha512-TQQMytKIAsolZwMdWkZ5DTyvK1XrHEyv2YNxPLrjcNJ99FAHEsdrZJ/v0SSdk5boPm4guIsiGx3UoFNKSltjwg==}
+  /vue-echarts-linkage/2.0.0-beta.6_vue@3.5.13:
+    resolution: {integrity: sha512-6P0IBWQkOA9XQSKtYBl9KCOdH0VIDj4bQm9znOTjbJSCiFlEGcVetzKLCnl8jf6903QQgmVMKHhgxsoNtQ6zvQ==}
     peerDependencies:
       vue: ^3.4.29
     dependencies:

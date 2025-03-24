@@ -116,17 +116,35 @@
   :root {
     --vp-home-hero-image-filter: blur(68px);
   }
-  .content {
-    padding: 0 2px 128px !important;
-  }
 }
 
 @media (min-width: 1280px) {
   :root {
     --vp-home-hero-image-filter: blur(68px);
   }
-  .content {
-    padding: 0 2px 128px !important;
+}
+
+@media (min-width: 1440px) {
+  .VPDoc.has-aside .aside {
+    width: 100%;
+    max-width: 176px;
+  }
+}
+
+@media (min-width: 1660px) {
+  /* 整体-带侧边栏 */
+  .VPContent.has-sidebar {
+    padding-right: calc((100vw - var(--vp-layout-max-width)) / 3) !important;
+  }
+  /* 侧边栏 */
+  .VPContent .VPDoc.has-aside .aside {
+    width: 100%;
+    max-width: 128px;
+  }
+  /* 侧边栏-内容区域 */
+  .VPContent .has-aside .content {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
   }
 }
 
@@ -153,16 +171,9 @@
   max-width: 100% !important;
 }
 
-.VPDoc.has-aside .aside {
-  position: relative;
-  order: 2;
-  flex-grow: 1;
-  padding-left: 32px;
-  width: 100%;
-  max-width: 128px;
-}
-
-.echarts-linkage-container .main-container *, *::before, *::after {
+.echarts-linkage-container .main-container *,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
@@ -171,4 +182,3 @@
 .echarts-linkage-container .main-container p {
   line-height: 21px;
 }
-

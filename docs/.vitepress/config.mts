@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress';
 import path from 'path';
 import fs from 'fs';
+// import analyzer from 'vite-bundle-analyzer';
+
 // 获取 lodash 的版本号
 const packageJsonPath = path.resolve(__dirname, '../../node_modules/vue-echarts-linkage/package.json');
 // 读取 package.json 文件
@@ -101,16 +103,16 @@ export default defineConfig({
     build: {
       rollupOptions: {
         output: {
-          // manualChunks(id) {
-          //   if (id.includes('node_modules')) {
-          //     // 将来自 node_modules 的大库分割成独立的 chunk
-          //     return id.split('node_modules/')[1].split('/')[0];
-          //   }
-          // },
-          // manualChunks: {
-          //   vue_echarts_linkage: ['vue-echarts-linkage'],
-          //   vue_echarts_linkage_style: ['vue-echarts-linkage/dist/style.css'],
-          // }
+          manualChunks(id) {
+            if (id.includes('node_modules/.pnpm/')) {
+              // 将来自 node_modules 的大库分割成独立的 chunk
+              const split = id.split('node_modules/.pnpm/')[1].split('/')[0];
+              return split;
+            } else if (id.includes('node_modules/')) {
+              const split = id.split('node_modules/')[1].split('/')[0];
+              return split;
+            }
+          },
         },
       },
     },
