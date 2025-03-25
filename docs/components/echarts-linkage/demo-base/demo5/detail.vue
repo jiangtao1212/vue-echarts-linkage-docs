@@ -4,6 +4,8 @@
     <el-button type="primary" size="small" @click="updateTemplateBtnClick('template')">模拟模板更新（叠加）</el-button>
     <el-button type="primary" size="small" @click="getTemplateTagsOptionBtnClick">获取模板信息并更新</el-button>
     <div style="width: 5vw;"></div>
+    <el-button type="primary" size="small" @click="replaceAllEchartsData">模拟非模板更新</el-button>
+    <div style="width: 5vw;"></div>
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
@@ -124,6 +126,29 @@ const getTemplateTagsOptionBtnClick = () => {
         xAxisName: '[m]',
         yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
         dragItemOption: templateTags[j],
+      };
+      oneDataTypeArray.push(oneDataType);
+    }
+    res.push(oneDataTypeArray);
+  }
+  echartsLinkageRef.value?.replaceAllEchartsData(res);
+}
+
+// 批量替换echarts实例数据
+const replaceAllEchartsData = () => {
+  const res: Array<OneDataType[]> = [];
+  for (let i = 0; i < 4; i++) {
+    const oneDataTypeArray: OneDataType[] = [];
+    for (let j = 0; j < 5; j++) {
+      const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+      const oneDataType: OneDataType = {
+        name: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        type: 'line',
+        seriesData: RandomUtil.getSeriesData(1000),
+        customData: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        xAxisName: '[m]',
+        yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
+        // 无dragItemOption模板信息
       };
       oneDataTypeArray.push(oneDataType);
     }

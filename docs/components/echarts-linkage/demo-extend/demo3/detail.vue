@@ -1,6 +1,7 @@
 <template>
   <div class="btn-container">
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
+    <el-button type="primary" size="small" @click="addLotEmptyLinkageBtnClick">批量新增空白echarts</el-button>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" 
@@ -92,6 +93,26 @@ const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
   echartsLinkageRef.value!.addEchartSeries(id, oneDataType);
 }
 
+// 批量新增空白echarts，携带legend数据
+const addLotEmptyLinkageBtnClick = () => {
+  for (let i = 0; i < 1; i++) {
+    const oneDataTypeArray: OneDataType[] = [];
+    for (let j = 0; j < 3; j++) {
+      const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+      const oneDataType: OneDataType = {
+        name: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        type: 'line',
+        seriesData: [],
+        customData: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        xAxisName: '[m]',
+        yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
+      };
+      oneDataTypeArray.push(oneDataType);
+    }
+    echartsLinkageRef.value!.addEchart(oneDataTypeArray);
+  }
+}
+
 // 拖拽回调事件
 const dropEchart = (data: DropEchartType) => {
   addLinkageSeriesCommon(seriesType, data.id);
@@ -127,6 +148,7 @@ const listenerExcelView = (data: ListenerExcelViewType) => {
 const init = () => {
   addLinkageBtnClick();
   addLinkageBtnClick();
+  // addLotEmptyLinkageBtnClick();
 }
 
 onMounted(() => {
