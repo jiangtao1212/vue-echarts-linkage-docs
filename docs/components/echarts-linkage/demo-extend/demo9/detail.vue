@@ -1,11 +1,12 @@
 <template>
   <div class="btn-container">
-    <el-button type="primary" size="small" @click="headToTailConnection">首尾连接echarts数据(多卷)</el-button>
+    <el-button type="primary" size="small" @click="updateAllLinkageBtnClick">批量更新echarts</el-button>
+    <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align :theme="theme"
     :use-graphic-location="false" :is-echarts-height-change="false" :echarts-height-fixed-count="2"
-    @listener-excel-view="listenerExcelView" />
+    @drop-echart="dropEchart" @listener-excel-view="listenerExcelView" />
 </template>
 
 <script setup lang="ts">
@@ -25,84 +26,19 @@ const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;
 
-// 批量替换echarts实例数据-多卷
-const headToTailConnection = () => {
-  const res: Array<OneDataType[]> = [];
-  const data1 = getRandomCountLinkData(2);
-  for (let i = 0; i < 3; i++) {
-    const oneDataTypeArray: OneDataType[] = [];
-    if (i === 0) {
-      const oneDataType: OneDataType = {
-        name: `开卷机外径`,
-        type: 'line',
-        seriesData: [],
-        customData: `开卷机外径`,
-        xAxisName: '[m]',
-        yAxisName: `[mm]`,
-        seriesLink: {
-          isLinkMode: true,
-          linkData: getRandomCountLinkData(2)
-        }
-      };
-      oneDataTypeArray.push(oneDataType);
-      const oneDataType1: OneDataType = {
-        name: `带头剪切实际值M`,
-        type: 'line',
-        seriesData: RandomUtil.getSeriesData(1000),
-        customData: `开卷机外径`,
-        xAxisName: '[m]',
-        yAxisName: `[mm]`,
-        seriesLink: {
-          isLinkMode: true,
-          linkData: data1
-        }
-      };
-      oneDataTypeArray.push(oneDataType1);
-
-    } else if (i === 1) {
-      const oneDataType: OneDataType = {
-        name: `带头剪切实际值M`,
-        type: 'line',
-        seriesData: RandomUtil.getSeriesData(1000),
-        customData: `开卷机外径`,
-        xAxisName: '[m]',
-        yAxisName: `[mm]`,
-        seriesLink: {
-          isLinkMode: true,
-          linkData: data1
-        }
-      };
-      oneDataTypeArray.push(oneDataType);
-    } else if (i === 2) {
-      const oneDataType: OneDataType = {
-        name: `液压站油箱液位`,
-        type: 'line',
-        seriesData: [],
-        customData: `液压站油箱液位`,
-        xAxisName: '[m]',
-        yAxisName: `[mm]`,
-        seriesLink: {
-          isLinkMode: true,
-          linkData: getRandomCountLinkData(2)
-        }
-      };
-      oneDataTypeArray.push(oneDataType);
+// 批量更新按钮
+const updateAllLinkageBtnClick = () => {
+  const allDistinctSeriesTagInfo: SeriesTagType[] = echartsLinkageRef.value?.getAllDistinctSeriesTagInfo() as SeriesTagType[];
+  console.log("allDistinctSeriesTagInfo", allDistinctSeriesTagInfo);
+  allDistinctSeriesTagInfo.forEach((item: SeriesTagType, index: number) => {
+    if (item.dataType === 'switch') {
+      item.seriesData = RandomUtil.getSwitchData(1000);
+    } else {
+      const seriesData = RandomUtil.getSeriesData(1000);
+      item.seriesData = seriesData;
     }
-    res.push(oneDataTypeArray);
-  }
-  console.log("res", res);
-  echartsLinkageRef.value?.replaceAllEchartsData(res);
-}
-
-// 随机获取首尾连接数据
-const getRandomCountLinkData = (count: number) => {
-  const res: Array<{ label: string, data: SeriesDataType }> = [];
-  for (let i = 0; i < count; i++) {
-    const label = `P20241021000${i + 1}`;
-    const data = RandomUtil.getSeriesData(1000);
-    res.push({ label, data });
-  }
-  return res;
+  });
+  echartsLinkageRef.value?.updateAllEcharts(allDistinctSeriesTagInfo);
 }
 
 // 新增按钮
@@ -135,6 +71,39 @@ const addLinkageBtnClick = () => {
   echartsLinkageRef.value!.addEchart(oneDataType);
 }
 
+// 新增series按钮
+const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
+  let seriesData = RandomUtil.getSeriesData(6000);
+  const baseLineData = JSON.parse(JSON.stringify(seriesData));
+  if (Math.random() > 0.5) {
+    for (let i = 0; i < 10; i++) {
+      baseLineData[i][1] = 100000;
+    }
+  }
+  if (switchFlag) {
+    seriesData = RandomUtil.getSwitchData(6000);
+  }
+  const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+  id = id || 'echart' + maxEchartsIdSeq;
+  const random = Math.floor(Math.random() * 100);
+  const oneDataType: OneDataType = {
+    name: `新增图表${maxEchartsIdSeq}-${random}`,
+    yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
+    type: type,
+    seriesData: seriesData,
+  };
+  if (switchFlag) {
+    oneDataType.dataType = 'switch';
+    switchFlag = false;
+  }
+  echartsLinkageRef.value!.addEchartSeries(id, oneDataType);
+}
+
+// 拖拽回调事件
+const dropEchart = (data: DropEchartType) => {
+  addLinkageSeriesCommon(seriesType, data.id);
+}
+
 // 监听excel数据视图按钮点击事件
 const listenerExcelView = (data: ListenerExcelViewType) => {
   console.log("listenerExcelView", data);
@@ -165,7 +134,6 @@ const listenerExcelView = (data: ListenerExcelViewType) => {
 const init = () => {
   addLinkageBtnClick();
   addLinkageBtnClick();
-  headToTailConnection();
 }
 
 onMounted(() => {
