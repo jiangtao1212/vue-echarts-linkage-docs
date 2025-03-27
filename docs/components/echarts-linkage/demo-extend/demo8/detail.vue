@@ -13,17 +13,12 @@ import { onMounted, ref } from "vue";
 import { ElButton } from 'element-plus';
 import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
-import type {
-  OneDataType, SeriesTagType, DropEchartType, DeleteEchartType,
-  ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
-} from 'vue-echarts-linkage'
+import type { OneDataType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
 import { MyTheme } from "@/composables/MyTheme";
 
 const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
-let seriesType = 'line' as 'line' | 'bar';
-let switchFlag = false;
 
 // 批量替换echarts实例数据-多卷
 const headToTailConnection = () => {
