@@ -1,12 +1,7 @@
 <template>
   <div class="btn-container">
     <el-button type="primary" size="small" @click="updateAllLinkageBtnClick">批量更新echarts</el-button>
-    <el-button type="primary" size="small" @click="updateAllLinkageExtraBtnClick">批量更新echarts(额外信息)</el-button>
-    <div style="width: 1vw;"></div>
-    <el-button type="primary" size="small" @click="clearAllLinkageExtraBtnClick">批量清除额外信息</el-button>
-    <div style="width: 1vw;"></div>
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
-    <div class="drag-rect drag-rect-line-extra" draggable="true"><span>可拖拽系列(折线-额外信息)</span></div>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align :theme="theme"
@@ -20,7 +15,8 @@ import { ElButton } from 'element-plus';
 import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
 import type {
-  OneDataType, SeriesTagType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType
+  OneDataType, SeriesTagType, DropEchartType, DeleteEchartType,
+  ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
 } from 'vue-echarts-linkage'
 import "vue-echarts-linkage/dist/style.css";
 import { MyTheme } from "@/composables/MyTheme";
@@ -29,7 +25,6 @@ const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;
-let extraTooltipFlag = false;
 
 // 批量更新按钮
 const updateAllLinkageBtnClick = () => {
@@ -44,58 +39,6 @@ const updateAllLinkageBtnClick = () => {
     }
   });
   echartsLinkageRef.value?.updateAllEcharts(allDistinctSeriesTagInfo);
-  if (extraTooltipFlag) {
-    echartsLinkageRef.value?.updateExtraTooltip([
-      { label: '额外信息' + Math.floor(Math.random() * 1000), value: RandomUtil.getSeriesData(1000) }
-    ]);
-    extraTooltipFlag = false;
-  }
-}
-
-// 批量更新echarts(额外信息)
-const updateAllLinkageExtraBtnClick = () => {
-  extraTooltipFlag = true;
-  updateAllLinkageBtnClick();
-}
-
-// 新增series按钮
-const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
-  let seriesData = RandomUtil.getSeriesData(6000);
-  const baseLineData = JSON.parse(JSON.stringify(seriesData));
-  if (Math.random() > 0.5) {
-    for (let i = 0; i < 10; i++) {
-      baseLineData[i][1] = 100000;
-    }
-  }
-  if (switchFlag) {
-    seriesData = RandomUtil.getSwitchData(6000);
-  }
-  const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
-  id = id || 'echart' + maxEchartsIdSeq;
-  const random = Math.floor(Math.random() * 100);
-  const oneDataType: OneDataType = {
-    name: `新增图表${maxEchartsIdSeq}-${random}`,
-    yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
-    type: type,
-    seriesData: seriesData,
-  };
-  if (switchFlag) {
-    oneDataType.dataType = 'switch';
-    switchFlag = false;
-  }
-  echartsLinkageRef.value!.addEchartSeries(id, oneDataType);
-  if (extraTooltipFlag) {
-    echartsLinkageRef.value!.addExtraTooltip([
-      { label: '额外信息1', value: RandomUtil.getSeriesData(1000) },
-      { label: '额外信息2', value: RandomUtil.getSeriesData(1000) },
-    ], id);
-    extraTooltipFlag = false;
-  }
-}
-
-// 批量清除额外信息
-const clearAllLinkageExtraBtnClick = () => {
-  echartsLinkageRef.value!.clearExtraTooltip();
 }
 
 // 新增按钮
@@ -126,6 +69,34 @@ const addLinkageBtnClick = () => {
     // },
   };
   echartsLinkageRef.value!.addEchart(oneDataType);
+}
+
+// 新增series按钮
+const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
+  let seriesData = RandomUtil.getSeriesData(6000);
+  const baseLineData = JSON.parse(JSON.stringify(seriesData));
+  if (Math.random() > 0.5) {
+    for (let i = 0; i < 10; i++) {
+      baseLineData[i][1] = 100000;
+    }
+  }
+  if (switchFlag) {
+    seriesData = RandomUtil.getSwitchData(6000);
+  }
+  const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+  id = id || 'echart' + maxEchartsIdSeq;
+  const random = Math.floor(Math.random() * 100);
+  const oneDataType: OneDataType = {
+    name: `新增图表${maxEchartsIdSeq}-${random}`,
+    yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
+    type: type,
+    seriesData: seriesData,
+  };
+  if (switchFlag) {
+    oneDataType.dataType = 'switch';
+    switchFlag = false;
+  }
+  echartsLinkageRef.value!.addEchartSeries(id, oneDataType);
 }
 
 // 拖拽回调事件
@@ -160,27 +131,7 @@ const listenerExcelView = (data: ListenerExcelViewType) => {
   callback(params);
 }
 
-// 监听拖拽事件
-const initLisener = () => {
-  const dragRectLine: HTMLElement = document.querySelector('.drag-rect-line') as HTMLElement;
-  const dragRectLineExtra: HTMLElement = document.querySelector('.drag-rect-line-extra') as HTMLElement;
-  dragRectLine.addEventListener('dragstart', (e: DragEvent) => {
-    console.log("dragstart");
-    seriesType = 'line';
-    e.dataTransfer!.setData('text', "123");
-    e.dataTransfer!.dropEffect = 'move';
-  });
-  dragRectLineExtra.addEventListener('dragstart', (e: DragEvent) => {
-    console.log("dragstart");
-    seriesType = 'line';
-    e.dataTransfer!.setData('text', "123");
-    e.dataTransfer!.dropEffect = 'move';
-    extraTooltipFlag = true;
-  });
-}
-
 const init = () => {
-  initLisener();
   addLinkageBtnClick();
   addLinkageBtnClick();
 }

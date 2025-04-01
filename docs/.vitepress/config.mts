@@ -58,6 +58,7 @@ export default defineConfig({
             { text: '拓展属性', link: '/demo/extend/demo6' },
             { text: '分组联动', link: '/demo/extend/demo7' },
             { text: '首尾连接', link: '/demo/extend/demo8' },
+            { text: '额外提示', link: '/demo/extend/demo9' },
           ]},
         ]
       }, 

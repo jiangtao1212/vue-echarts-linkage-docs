@@ -142,7 +142,7 @@
     max-width: 128px;
   }
   /* 侧边栏-内容区域 */
-  .VPContent .has-aside .content {
+  .VPContent .has-aside .container > .content {
     padding-left: 2px !important;
     padding-right: 2px !important;
   }
