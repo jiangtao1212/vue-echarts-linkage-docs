@@ -9,14 +9,14 @@ specifiers:
   vite-bundle-analyzer: ^0.17.0
   vitepress: ^1.5.0
   vue: ^3.5.13
-  vue-echarts-linkage: 2.0.1-beta.2
+  vue-echarts-linkage: 2.0.1
 
 dependencies:
   '@element-plus/icons-vue': 2.3.1_vue@3.5.13
   element-plus: 2.9.0_vue@3.5.13
   unocss: 0.58.9
   vue: 3.5.13
-  vue-echarts-linkage: 2.0.1-beta.2_vue@3.5.13
+  vue-echarts-linkage: 2.0.1_vue@3.5.13
 
 devDependencies:
   '@types/node': 22.13.1
@@ -2776,8 +2776,8 @@ packages:
       '@types/sortablejs': 1.15.8
     dev: false
 
-  /vue-echarts-linkage/2.0.1-beta.2_vue@3.5.13:
-    resolution: {integrity: sha512-QCDufhr1axKg+Ydjgm23XXr+ViwrtRchcJpgr2FApeN/1+tHD8cQXnd9+5wMRitnk6CsZWxraSrkjhk4sQ8kRg==}
+  /vue-echarts-linkage/2.0.1_vue@3.5.13:
+    resolution: {integrity: sha512-CxgNXQ+GrAFzL++J9ICmTQCOVKfXFVYqaUfd8E1Bd4QsW4CWHdMY7rpBjIcvPu/lmqIm/gWsEmsiTEJ07UfR3A==}
     peerDependencies:
       vue: ^3.4.29
     dependencies:

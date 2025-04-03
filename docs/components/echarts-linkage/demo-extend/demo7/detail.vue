@@ -3,15 +3,18 @@
     <el-button type="primary" size="small" @click="addLinkageBtnClick">新增echarts实例</el-button>
     <el-button type="primary" size="small" @click="updateAllLinkageBtnClick">批量更新echarts</el-button>
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
+    <div style="width: 5vw;"></div>
+    <el-button type="primary" size="small" @click="() => groups = []">默认分组（联动）</el-button>
+    <el-button type="primary" size="small" @click="() => groups = [[1], [2], [3], [4]]">清除分组</el-button>
+    <el-button type="primary" size="small" @click="() => groups = [[1, 2], [3, 4]]">修改分组</el-button>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
-  <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align :theme="theme"
-    :use-graphic-location="false" 
-    :is-echarts-height-change="false" 
-    :echarts-height-fixed-count="5"
-    :groups="[[1, 3], [2, 4]]"
-    @drop-echart="dropEchart" 
-    @listener-excel-view="listenerExcelView" />
+  <VueEchartsLinkage 
+    ref="echartsLinkageRef" 
+    :cols="1" :echarts-max-count="10" language="zh-cn" grid-align
+    :theme="theme" :use-graphic-location="false" :is-echarts-height-change="false" :echarts-height-fixed-count="5"
+    :groups="groups" 
+    @drop-echart="dropEchart" @listener-excel-view="listenerExcelView" />
 </template>
 
 <script setup lang="ts">
@@ -19,17 +22,16 @@ import { onMounted, ref } from "vue";
 import { ElButton } from 'element-plus';
 import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
-import type {
-  OneDataType, SeriesTagType, DropEchartType, DeleteEchartType,
-  ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
-} from 'vue-echarts-linkage'
+import type { OneDataType, SeriesTagType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType, SeriesClassType } from 'vue-echarts-linkage'
+import { SERIES_CLASS_TYPE_DEFAULT } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
 import { MyTheme } from "@/composables/MyTheme";
 
 const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
-let seriesType = 'line' as 'line' | 'bar';
+let seriesType = SERIES_CLASS_TYPE_DEFAULT as SeriesClassType;
 let switchFlag = false;
+let groups = ref<Array<Array<number>>>([[1, 3], [2, 4]]);
 
 // 批量更新按钮
 const updateAllLinkageBtnClick = () => {

@@ -2,11 +2,13 @@
   <div class="btn-container">
     <el-button type="primary" size="small" @click="updateAllLinkageBtnClick">批量更新echarts</el-button>
     <el-button type="primary" size="small" @click="updateAllLinkageExtraBtnClick">批量更新echarts(额外信息)</el-button>
-    <div style="width: 1vw;"></div>
+    <div style="width: 0.5vw;"></div>
     <el-button type="primary" size="small" @click="clearAllLinkageExtraBtnClick">批量清除额外信息</el-button>
-    <div style="width: 1vw;"></div>
+    <div style="width: 0.5vw;"></div>
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
     <div class="drag-rect drag-rect-line-extra" draggable="true"><span>可拖拽系列(折线-额外信息)</span></div>
+    <div style="width: 0.5vw;"></div>
+    <el-button type="primary" size="small" @click="replaceAllEchartsData">批量替换echarts数据(提示额外信息)</el-button>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align :theme="theme"
@@ -19,17 +21,47 @@ import { onMounted, ref } from "vue";
 import { ElButton } from 'element-plus';
 import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
-import type {
-  OneDataType, SeriesTagType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType
-} from 'vue-echarts-linkage'
+import type { OneDataType, SeriesTagType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType, SeriesClassType } from 'vue-echarts-linkage';
+import { SERIES_CLASS_TYPE_DEFAULT } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
 import { MyTheme } from "@/composables/MyTheme";
 
 const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
-let seriesType = 'line' as 'line' | 'bar';
+let seriesType = SERIES_CLASS_TYPE_DEFAULT as SeriesClassType;
 let switchFlag = false;
 let extraTooltipFlag = false;
+
+// 批量替换echarts数据(提示额外信息)
+const replaceAllEchartsData = async () => {
+  const res: Array<OneDataType[]> = [];
+  for (let i = 0; i < 3; i++) {
+    const oneDataTypeArray: OneDataType[] = [];
+    for (let j = 0; j < 2; j++) {
+      const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+      const oneDataType: OneDataType = {
+        name: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        type: 'line',
+        seriesData: RandomUtil.getSeriesData(1000),
+        customData: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        xAxisName: '[m]',
+        yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
+      };
+      oneDataTypeArray.push(oneDataType);
+    }
+    res.push(oneDataTypeArray);
+  }
+  await echartsLinkageRef.value?.replaceAllEchartsData(res);
+  echartsLinkageRef.value?.clearExtraTooltip();
+  const allSeriesTagInfo = echartsLinkageRef.value?.getAllSeriesTagInfo();
+  console.log("allSeriesTagInfo", allSeriesTagInfo);
+  allSeriesTagInfo!.forEach((item: { id: string, series: Array<SeriesTagType> }) => {
+    echartsLinkageRef.value?.addExtraTooltip([
+      { label: '额外信息' + Math.floor(Math.random() * 1000), value: RandomUtil.getSeriesData(1000) },
+      { label: '额外信息' + Math.floor(Math.random() * 1000), value: RandomUtil.getSeriesData(1000) },
+    ], item.id, true);
+  });
+}
 
 // 批量更新按钮
 const updateAllLinkageBtnClick = () => {

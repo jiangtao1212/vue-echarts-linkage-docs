@@ -2,16 +2,15 @@
   <div class="btn-container">
     <el-button type="primary" size="small" @click="addLinkageBtnClick">新增echarts实例</el-button>
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
+    <div style="width: 5vw;"></div>
+    <el-button type="primary" size="small" @click="() => isLinkage = true">联动（开启）</el-button>
+    <el-button type="primary" size="small" @click="() => isLinkage = false">联动（关闭）</el-button>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
-  <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" :theme="theme"
-    grid-align 
-    :use-graphic-location="false" 
-    :is-echarts-height-change="false"
-    :echarts-height-fixed-count="2"
-    :is-linkage="false"
-    @drop-echart="dropEchart"
-    @listener-excel-view="listenerExcelView" />
+  <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" :theme="theme" grid-align
+    :use-graphic-location="false" :is-echarts-height-change="false" :echarts-height-fixed-count="2"
+    :is-linkage="isLinkage" 
+    @drop-echart="dropEchart" @listener-excel-view="listenerExcelView" />
 </template>
 
 <script setup lang="ts">
@@ -19,17 +18,16 @@ import { onMounted, ref } from "vue";
 import { ElButton } from 'element-plus';
 import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
-import type {
-  OneDataType, SeriesTagType, DropEchartType, DeleteEchartType,
-  ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
-} from 'vue-echarts-linkage'
+import type { OneDataType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType, SeriesClassType } from 'vue-echarts-linkage';
+import { SERIES_CLASS_TYPE_DEFAULT } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
 import { MyTheme } from "@/composables/MyTheme";
 
 const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
-let seriesType = 'line' as 'line' | 'bar';
+let seriesType = SERIES_CLASS_TYPE_DEFAULT as SeriesClassType;
 let switchFlag = false;
+let isLinkage = ref<boolean>(true);
 
 // 新增按钮
 const addLinkageBtnClick = () => {
@@ -40,7 +38,6 @@ const addLinkageBtnClick = () => {
     yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
     type: 'line',
     seriesData: seriesData,
-    // markLineArray: [RandomUtil.getRandomDataFromInterval(0, 1000), RandomUtil.getRandomDataFromInterval(0, 1000)]
     visualMapSeries: {
       pieces: [{ min: 5000, max: 8000 }],
       piecesOnTooltip: { show: true, value: '自定义pieces' }
@@ -168,7 +165,6 @@ onMounted(() => {
   width: 100%;
   height: 60vh;
 }
-
 </style>
 <style scoped lang="less">
 .el-button {
