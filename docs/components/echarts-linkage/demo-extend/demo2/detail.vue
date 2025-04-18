@@ -6,8 +6,7 @@
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn"
     grid-align :theme="theme" :use-graphic-location="false" :is-echarts-height-change="false"
-    :echarts-height-fixed-count="2"
-    @listener-excel-view="listenerExcelView" />
+    :echarts-height-fixed-count="2" />
 </template>
 
 <script setup lang="ts">
@@ -59,33 +58,6 @@ const packagePieceModeData = () => {
 const addLinkageBtnClick = () => {
   const oneDataType: OneDataType = packagePieceModeData();
   echartsLinkageRef.value!.addEchart(oneDataType);
-}
-
-// 监听excel数据视图按钮点击事件
-const listenerExcelView = (data: ListenerExcelViewType) => {
-  console.log("listenerExcelView", data);
-  const { id, seriesLink, callback } = data;
-  console.log("id", id);
-  console.log("seriesLink", seriesLink);
-  let params: excelViewType;
-  if (seriesLink && seriesLink.isLinkMode) {
-    const primaryKeyValues = seriesLink?.linkData.map(item => item.label); // 提取主键值
-    params = { // 多卷
-      headXname: '长度',
-      preAdd: [
-        { name: '卷号', value: primaryKeyValues, isPrimaryKey: true },
-        { name: '宽度', value: [1000, 1500] },
-        { name: '厚度', value: [0.35, 0.40] },
-      ] as excelViewHeadType[],
-    }
-  } else {
-    params = { // 单卷
-      headXname: '长度',
-      preAdd: [{ name: '卷号', value: 'P202410210001', isPrimaryKey: true } as excelViewHeadType],
-      postAdd: [{ name: '备注', value: '备注信息' } as excelViewHeadType],
-    }
-  }
-  callback(params);
 }
 
 const init = () => {

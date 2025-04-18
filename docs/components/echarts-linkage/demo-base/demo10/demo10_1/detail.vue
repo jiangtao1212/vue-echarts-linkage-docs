@@ -1,20 +1,18 @@
 <template>
   <div class="btn-container">
     <el-button type="primary" size="small" @click="addLinkageBtnClick">新增echarts实例</el-button>
-    <el-button type="primary" size="small" @click="updateAllLinkageBtnClick">批量更新echarts</el-button>
+    <el-button type="primary" size="small" @click="addLotEmptyLinkageBtnClick">批量新增空白echarts</el-button>
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
-    <div style="width: 5vw;"></div>
-    <el-button type="primary" size="small" @click="() => groups = []">默认分组（联动）</el-button>
-    <el-button type="primary" size="small" @click="() => groups = [[1], [2], [3], [4]]">清除分组</el-button>
-    <el-button type="primary" size="small" @click="() => groups = [[1, 2], [3, 4]]">修改分组</el-button>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage 
     ref="echartsLinkageRef" 
-    :cols="1" :echarts-max-count="10" language="zh-cn" grid-align
-    :theme="theme" :use-graphic-location="false" :is-echarts-height-change="false" :echarts-height-fixed-count="5"
-    :groups="groups" 
-    @drop-echart="dropEchart" />
+    :cols="2"
+    :is-echarts-height-change="false"
+    :echarts-max-count="10"
+    grid-align :theme="theme" :use-graphic-location="false" 
+    :echarts-height-fixed-count="2" @drop-echart="dropEchart"
+    :extra-option="extraOption" />
 </template>
 
 <script setup lang="ts">
@@ -22,30 +20,36 @@ import { onMounted, ref } from "vue";
 import { ElButton } from 'element-plus';
 import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
-import type { OneDataType, SeriesTagType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType, SeriesClassType } from 'vue-echarts-linkage'
-import { SERIES_CLASS_TYPE_DEFAULT } from 'vue-echarts-linkage';
+import type { OneDataType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
 import { MyTheme } from "@/composables/MyTheme";
 
 const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
-let seriesType = SERIES_CLASS_TYPE_DEFAULT as SeriesClassType;
+let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;
-let groups = ref<Array<Array<number>>>([[1, 3], [2, 4]]);
 
-// 批量更新按钮
-const updateAllLinkageBtnClick = () => {
-  const allDistinctSeriesTagInfo: SeriesTagType[] = echartsLinkageRef.value?.getAllDistinctSeriesTagInfo() as SeriesTagType[];
-  console.log("allDistinctSeriesTagInfo", allDistinctSeriesTagInfo);
-  allDistinctSeriesTagInfo.forEach((item: SeriesTagType, index: number) => {
-    if (item.dataType === 'switch') {
-      item.seriesData = RandomUtil.getSwitchData(1000);
-    } else {
-      const seriesData = RandomUtil.getSeriesData(1000);
-      item.seriesData = seriesData;
+// 额外的配置项
+const extraOption = {
+  toolbox: {
+    feature: {
+      myThemeButton: {
+        show: false
+      },
+      myEnlargeShrinkButton: {
+        show: true
+      },
+      myExcelView: {
+        show: false
+      },
+      mySaveAsImage: {
+        show: false
+      },
+      myDeleteButton: {
+        show: false
+      }
     }
-  });
-  echartsLinkageRef.value?.updateAllEcharts(allDistinctSeriesTagInfo);
+  },
 }
 
 // 新增按钮
@@ -62,20 +66,28 @@ const addLinkageBtnClick = () => {
       pieces: [{ min: 5000, max: 8000 }],
       piecesOnTooltip: { show: true, value: '自定义pieces' }
     },
-    // 多卷首尾连接设置
-    // seriesLink: {
-    //   isLinkMode: true,
-    //   head: [{ lebel: '宽度', prop: 'width' }, { lebel: '高度', prop: 'height' }],
-    //   linkName: '卷号',
-    //   linkData: [
-    //     { label: 'P202410210001', data: RandomUtil.getSeriesData(1000), custum: { width: 1000, height: 100000 },
-    //     { label: 'P202410210002', data: RandomUtil.getSeriesData(1000) },
-    //     { label: 'P202410210003', data: RandomUtil.getSeriesData(1000) },
-    //     { label: 'P202410210004', data: RandomUtil.getSeriesData(1000) },
-    //   ]
-    // },
   };
   echartsLinkageRef.value!.addEchart(oneDataType);
+}
+
+// 批量新增空白echarts，携带legend数据
+const addLotEmptyLinkageBtnClick = () => {
+  for (let i = 0; i < 1; i++) {
+    const oneDataTypeArray: OneDataType[] = [];
+    for (let j = 0; j < 3; j++) {
+      const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+      const oneDataType: OneDataType = {
+        name: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        type: 'line',
+        seriesData: [],
+        customData: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
+        xAxisName: '[m]',
+        yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
+      };
+      oneDataTypeArray.push(oneDataType);
+    }
+    echartsLinkageRef.value!.addEchart(oneDataTypeArray);
+  }
 }
 
 // 新增series按钮
@@ -98,6 +110,24 @@ const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
     yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
     type: type,
     seriesData: seriesData,
+    // visualMapSeries: {
+    //   pieces: [{ min: 5000, max: 8000 }],
+    //   baseLine: {
+    //     mode: 'below',
+    //     value: baseLineData,
+    //     isShowOnToolTip: true,
+    //   }
+    // },
+    // 多卷首尾连接设置
+    // seriesLink: {
+    //   isLinkMode: true,
+    //   linkData: [
+    //     { label: 'P202410210001', data: RandomUtil.getSeriesData(1000) },
+    //     { label: 'P202410210002', data: RandomUtil.getSeriesData(1000) },
+    //     { label: 'P202410210003', data: RandomUtil.getSeriesData(1000) },
+    //     { label: 'P202410210004', data: RandomUtil.getSeriesData(1000) },
+    //   ]
+    // },
   };
   if (switchFlag) {
     oneDataType.dataType = 'switch';
@@ -112,7 +142,6 @@ const dropEchart = (data: DropEchartType) => {
 }
 
 const init = () => {
-  addLinkageBtnClick();
   addLinkageBtnClick();
   addLinkageBtnClick();
   addLinkageBtnClick();
@@ -154,6 +183,7 @@ onMounted(() => {
   width: 100%;
   height: 60vh;
 }
+
 </style>
 <style scoped lang="less">
 .el-button {

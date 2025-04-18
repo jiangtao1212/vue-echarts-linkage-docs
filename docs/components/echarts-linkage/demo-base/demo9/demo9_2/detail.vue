@@ -11,8 +11,7 @@
     :is-echarts-height-change="true"
     :echarts-max-count="10"
     grid-align :theme="theme" :use-graphic-location="false" 
-    :echarts-height-fixed-count="2" @drop-echart="dropEchart"
-    @listener-excel-view="listenerExcelView" />
+    :echarts-height-fixed-count="2" @drop-echart="dropEchart" />
 </template>
 
 <script setup lang="ts">
@@ -119,33 +118,6 @@ const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
 // 拖拽回调事件
 const dropEchart = (data: DropEchartType) => {
   addLinkageSeriesCommon(seriesType, data.id);
-}
-
-// 监听excel数据视图按钮点击事件
-const listenerExcelView = (data: ListenerExcelViewType) => {
-  console.log("listenerExcelView", data);
-  const { id, seriesLink, callback } = data;
-  console.log("id", id);
-  console.log("seriesLink", seriesLink);
-  let params: excelViewType;
-  if (seriesLink && seriesLink.isLinkMode) {
-    const primaryKeyValues = seriesLink?.linkData.map(item => item.label); // 提取主键值
-    params = { // 多卷
-      headXname: '长度',
-      preAdd: [
-        { name: '卷号', value: primaryKeyValues, isPrimaryKey: true },
-        { name: '宽度', value: [1000, 1500] },
-        { name: '厚度', value: [0.35, 0.40] },
-      ] as excelViewHeadType[],
-    }
-  } else {
-    params = { // 单卷
-      headXname: '长度',
-      preAdd: [{ name: '卷号', value: 'P202410210001', isPrimaryKey: true } as excelViewHeadType],
-      postAdd: [{ name: '备注', value: '备注信息' } as excelViewHeadType],
-    }
-  }
-  callback(params);
 }
 
 const init = () => {

@@ -6,12 +6,14 @@
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage 
-    ref="echartsLinkageRef" 
+    ref="echartsLinkageRef_2" 
     :cols="2" 
     :is-echarts-height-change="false"
     :echarts-max-count="10"
     grid-align :theme="theme" :use-graphic-location="false" 
-    :echarts-height-fixed-count="2" @drop-echart="dropEchart"  />
+    :echarts-height-fixed-count="2" @drop-echart="dropEchart"
+    :extra-option="extraOption" 
+    @listener-excel-view="listenerExcelView" />
 </template>
 
 <script setup lang="ts">
@@ -19,22 +21,69 @@ import { onMounted, ref } from "vue";
 import { ElButton } from 'element-plus';
 import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
-import type {
-  OneDataType, SeriesTagType, DropEchartType, DeleteEchartType,
-  ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
-} from 'vue-echarts-linkage'
+import type { OneDataType, DropEchartType, ListenerExcelViewType, excelViewType, excelViewHeadType } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
 import { MyTheme } from "@/composables/MyTheme";
 
 const { theme } = new MyTheme();
-const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
+const echartsLinkageRef_2 = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;
+
+// 额外的配置项
+const extraOption = {
+  toolbox: {
+    feature: {
+      myThemeButton: {
+        show: false
+      },
+      myEnlargeShrinkButton: {
+        show: false
+      },
+      myExcelView: {
+        show: true
+      },
+      mySaveAsImage: {
+        show: false
+      },
+      myDeleteButton: {
+        show: false
+      }
+    }
+  },
+}
+
+// 监听excel数据视图按钮点击事件
+const listenerExcelView = (data: ListenerExcelViewType, callback: (params: excelViewType) => void) => {
+  console.log("listenerExcelView", data);
+  const { id, seriesLink } = data;
+  console.log("id", id);
+  console.log("seriesLink", seriesLink);
+  let params: excelViewType;
+  if (seriesLink && seriesLink.isLinkMode) {
+    const primaryKeyValues = seriesLink?.linkData.map(item => item.label); // 提取主键值
+    params = { // 多卷
+      headXname: '长度',
+      preAdd: [
+        { name: '卷号', value: primaryKeyValues, isPrimaryKey: true },
+        { name: '宽度', value: [1000, 1500] },
+        { name: '厚度', value: [0.35, 0.40] },
+      ] as excelViewHeadType[],
+    }
+  } else {
+    params = { // 单卷
+      headXname: '长度',
+      preAdd: [{ name: '卷号', value: 'P202410210001', isPrimaryKey: true } as excelViewHeadType],
+      postAdd: [{ name: '备注', value: '备注信息' } as excelViewHeadType],
+    }
+  }
+  callback(params);
+}
 
 // 新增按钮
 const addLinkageBtnClick = () => {
   const seriesData = RandomUtil.getSeriesData(1000);
-  const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+  const maxEchartsIdSeq = echartsLinkageRef_2.value!.getMaxEchartsIdSeq();
   const oneDataType: OneDataType = {
     name: `新增图表${maxEchartsIdSeq + 1}`,
     yAxisName: `[${Math.floor(Math.random() * 10) > 5 ? 'mm' : '℃'}]`,
@@ -46,7 +95,7 @@ const addLinkageBtnClick = () => {
       piecesOnTooltip: { show: true, value: '自定义pieces' }
     },
   };
-  echartsLinkageRef.value!.addEchart(oneDataType);
+  echartsLinkageRef_2.value!.addEchart(oneDataType);
 }
 
 // 批量新增空白echarts，携带legend数据
@@ -54,7 +103,7 @@ const addLotEmptyLinkageBtnClick = () => {
   for (let i = 0; i < 1; i++) {
     const oneDataTypeArray: OneDataType[] = [];
     for (let j = 0; j < 3; j++) {
-      const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+      const maxEchartsIdSeq = echartsLinkageRef_2.value!.getMaxEchartsIdSeq();
       const oneDataType: OneDataType = {
         name: `新增图表${maxEchartsIdSeq + 1}-${Math.floor(Math.random() * 1000)}`,
         type: 'line',
@@ -65,7 +114,7 @@ const addLotEmptyLinkageBtnClick = () => {
       };
       oneDataTypeArray.push(oneDataType);
     }
-    echartsLinkageRef.value!.addEchart(oneDataTypeArray);
+    echartsLinkageRef_2.value!.addEchart(oneDataTypeArray);
   }
 }
 
@@ -81,7 +130,7 @@ const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
   if (switchFlag) {
     seriesData = RandomUtil.getSwitchData(6000);
   }
-  const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
+  const maxEchartsIdSeq = echartsLinkageRef_2.value!.getMaxEchartsIdSeq();
   id = id || 'echart' + maxEchartsIdSeq;
   const random = Math.floor(Math.random() * 100);
   const oneDataType: OneDataType = {
@@ -112,7 +161,7 @@ const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
     oneDataType.dataType = 'switch';
     switchFlag = false;
   }
-  echartsLinkageRef.value!.addEchartSeries(id, oneDataType);
+  echartsLinkageRef_2.value!.addEchartSeries(id, oneDataType);
 }
 
 // 拖拽回调事件
@@ -162,7 +211,6 @@ onMounted(() => {
   width: 100%;
   height: 60vh;
 }
-
 </style>
 <style scoped lang="less">
 .el-button {

@@ -48,6 +48,10 @@ export default defineConfig({
               { text: '固定高度', link: '/demo/base/demo9/demo9_1' },
               { text: '自适应高度', link: '/demo/base/demo9/demo9_2' },
             ]},
+            { text: '工具栏按钮', collapsed: true, items: [
+              { text: '放缩功能', link: '/demo/base/demo10/demo10_1' },
+              { text: '数据视图', link: '/demo/base/demo10/demo10_2' },
+            ]},
           ]},
           { text: '拓展示例', items: [ 
             { text: '基线比较', link: '/demo/extend/demo1' },
