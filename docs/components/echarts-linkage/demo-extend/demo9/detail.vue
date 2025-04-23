@@ -160,7 +160,7 @@ const addLinkageBtnClick = () => {
   echartsLinkageRef.value!.addEchart(oneDataType);
 }
 
-// 拖拽回调事件
+// 删除回调事件
 const dropEchart = (data: DropEchartType) => {
   addLinkageSeriesCommon(seriesType, data.id);
 }
@@ -183,7 +183,6 @@ const initLisener = () => {
     extraTooltipFlag = true;
   });
 }
-
 const init = () => {
   initLisener();
   addLinkageBtnClick();

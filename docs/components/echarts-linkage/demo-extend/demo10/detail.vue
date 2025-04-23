@@ -2,6 +2,7 @@
   <div class="btn-container">
     <el-button type="primary" size="small" @click="updateAllLinkageBtnClick">批量更新echarts</el-button>
     <div class="drag-rect drag-rect-line" draggable="true"><span>可拖拽折线系列</span></div>
+    <div class="drag-rect drag-rect-line-custom" draggable="true"><span>可拖拽系列(折线-自定义内容)</span></div>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align :theme="theme"
@@ -14,10 +15,7 @@ import { onMounted, ref } from "vue";
 import { ElButton } from 'element-plus';
 import { RandomUtil } from "@/components/utils/index";
 import { VueEchartsLinkage } from 'vue-echarts-linkage';
-import type {
-  OneDataType, SeriesTagType, DropEchartType, DeleteEchartType,
-  ListenerGrapicLocationType, SeriesDataType, ListenerExcelViewType, excelViewType, excelViewHeadType
-} from 'vue-echarts-linkage'
+import type { OneDataType, SeriesTagType, DropEchartType } from 'vue-echarts-linkage';
 import "vue-echarts-linkage/dist/style.css";
 import { MyTheme } from "@/composables/MyTheme";
 
@@ -25,6 +23,7 @@ const { theme } = new MyTheme();
 const echartsLinkageRef = ref<InstanceType<typeof VueEchartsLinkage>>();
 let seriesType = 'line' as 'line' | 'bar';
 let switchFlag = false;
+let customContentFlag = false;
 
 // 批量更新按钮
 const updateAllLinkageBtnClick = () => {
@@ -39,6 +38,10 @@ const updateAllLinkageBtnClick = () => {
     }
   });
   echartsLinkageRef.value?.updateAllEcharts(allDistinctSeriesTagInfo);
+  echartsLinkageRef.value?.updateAllCustomContent([
+    `<div style="font-size: .8rem; color: red;">批量更新内容1</div>`,
+    `<div style="font-size: .8rem; color: red;">批量更新内容2</div>`,
+  ]);
 }
 
 // 新增按钮
@@ -97,6 +100,16 @@ const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
     switchFlag = false;
   }
   echartsLinkageRef.value!.addEchartSeries(id, oneDataType);
+
+  if (customContentFlag) {
+    // 方法1
+    // echartsLinkageRef.value!.updateAllCustomContent([`<div style="font-size: .8rem; color: red;">自定义内容1</div>`]);
+    // 方法2
+    echartsLinkageRef.value!.updateAllCustomContentById([{ id, html: `<div style="font-size: .7rem; color: red;">自定义内容2</div>` },]);
+    // 方法3
+    // echartsLinkageRef.value!.updateCustomContentById({id, html: `<div style="font-size: .8rem; color: red;">自定义内容id</div>`});
+    customContentFlag = false;
+  }
 }
 
 // 拖拽回调事件
@@ -104,7 +117,28 @@ const dropEchart = (data: DropEchartType) => {
   addLinkageSeriesCommon(seriesType, data.id);
 }
 
+// 监听拖拽事件
+const initLisener = () => {
+  const dragRectLine: HTMLElement = document.querySelector('.drag-rect-line') as HTMLElement;
+  const dragRectLineCustom: HTMLElement = document.querySelector('.drag-rect-line-custom') as HTMLElement;
+
+  dragRectLine.addEventListener('dragstart', (e: DragEvent) => {
+    console.log("dragstart");
+    seriesType = 'line';
+    e.dataTransfer!.setData('text', "123");
+    e.dataTransfer!.dropEffect = 'move';
+  });
+  dragRectLineCustom.addEventListener('dragstart', (e: DragEvent) => {
+    console.log("dragstart");
+    seriesType = 'line';
+    e.dataTransfer!.setData('text', "123");
+    e.dataTransfer!.dropEffect = 'move';
+    customContentFlag = true;
+  });
+}
+
 const init = () => {
+  initLisener();
   addLinkageBtnClick();
   addLinkageBtnClick();
 }

@@ -63,6 +63,7 @@ export default defineConfig({
             { text: '分组联动', link: '/demo/extend/demo7' },
             { text: '首尾连接', link: '/demo/extend/demo8' },
             { text: '额外提示', link: '/demo/extend/demo9' },
+            { text: '自定义容器', link: '/demo/extend/demo10' },
           ]},
         ]
       }, 

@@ -1,5 +1,5 @@
 <script setup>
-import LinkageDemo3 from '@/components/echarts-linkage/demo-extend/demo3/index.vue';
+import LinkageDemo10 from '@/components/echarts-linkage/demo-extend/demo10/index.vue';
 </script>
 
 # 示例说明
@@ -7,18 +7,19 @@ import LinkageDemo3 from '@/components/echarts-linkage/demo-extend/demo3/index.v
 vue-echarts-linkage 联动组件的拓展示例。
 
 > 注意：拓展示例包含的功能，包括：
-> 1. 批量更新数据，保持图例不变，数据更新
-> 2. `getAllDistinctSeriesTagInfo: () => SeriesTagType[]` 获取所有不重复系列的标签信息
-> 2. `updateAllEcharts: (newAllSeriesdata: SeriesTagType[]) => Promise<boolean>` 传入所有显示子项数据，更新所有echarts
+> 1. 自定义容器内容，绝对定位
+> 2. `updateAllCustomContent: (htmls: string[]) => void;` 更新所有图表的自定义容器内容
+> 2. `updateAllCustomContentById: (params: CustomContentHtmlType[]) => void` 更新所有图表的自定义容器内容，通过id更新
+> 3. `updateCustomContentById: (param: CustomContentHtmlType) => void` 更新单个图表的自定义容器内容，通过id更新
 
-## 1. 批量更新数据
+## 1. 自定义容器内容
 
-* 批量更新数据，保持图例不变，数据更新。
+* 自定义容器内容，绝对定位，传入html字符串
 
-<LinkageDemo3 />
+<LinkageDemo10 />
 
 ::: details 点我查看代码
-<<< @/components/echarts-linkage/demo-extend/demo3/detail.vue
+<<< @/components/echarts-linkage/demo-extend/demo10/detail.vue{41-44,104-112}
 :::
 
 ## More docs
