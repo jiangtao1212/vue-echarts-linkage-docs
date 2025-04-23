@@ -5,8 +5,8 @@
     <div class="drag-rect drag-rect-line-custom" draggable="true"><span>可拖拽系列(折线-自定义内容)</span></div>
   </div>
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
-  <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align :theme="theme"
-    :use-graphic-location="false" :is-echarts-height-change="false" :echarts-height-fixed-count="2"
+  <VueEchartsLinkage ref="echartsLinkageRef" :cols="1" :echarts-max-count="10" language="zh-cn" grid-align
+    :theme="theme" :use-graphic-location="false" :is-echarts-height-change="false" :echarts-height-fixed-count="2"
     @drop-echart="dropEchart" />
 </template>
 
@@ -45,7 +45,7 @@ const updateAllLinkageBtnClick = () => {
 }
 
 // 新增按钮
-const addLinkageBtnClick = () => {
+const addLinkageBtnClick = async () => {
   const seriesData = RandomUtil.getSeriesData(1000);
   const maxEchartsIdSeq = echartsLinkageRef.value!.getMaxEchartsIdSeq();
   const oneDataType: OneDataType = {
@@ -71,7 +71,9 @@ const addLinkageBtnClick = () => {
     //   ]
     // },
   };
-  echartsLinkageRef.value!.addEchart(oneDataType);
+  await echartsLinkageRef.value!.addEchart(oneDataType);
+  const id = 'echart' + (maxEchartsIdSeq + 1);
+  echartsLinkageRef.value!.updateAllCustomContentById([{ id, html: `<div style="font-size: .7rem; color: red;">自定义内容${id}</div>` },]);
 }
 
 // 新增series按钮
@@ -100,7 +102,6 @@ const addLinkageSeriesCommon = (type: 'line' | 'bar' = 'line', id?: string) => {
     switchFlag = false;
   }
   echartsLinkageRef.value!.addEchartSeries(id, oneDataType);
-
   if (customContentFlag) {
     // 方法1
     // echartsLinkageRef.value!.updateAllCustomContent([`<div style="font-size: .8rem; color: red;">自定义内容1</div>`]);
