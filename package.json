@@ -17,7 +17,7 @@
     "less": "^4.2.1",
     "vite-bundle-analyzer": "^0.17.0",
     "vitepress": "^1.6.4",
-    "preact": ">=10.26.10"
+    "preact": "^10.26.10"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",

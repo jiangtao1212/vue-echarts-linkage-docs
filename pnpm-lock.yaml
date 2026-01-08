@@ -31,7 +31,7 @@ importers:
         specifier: ^4.2.1
         version: 4.3.0
       preact:
-        specifier: '>=10.26.10'
+        specifier: ^10.26.10
         version: 10.28.2
       vite-bundle-analyzer:
         specifier: ^0.17.0
