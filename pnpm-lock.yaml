@@ -30,12 +30,15 @@ importers:
       less:
         specifier: ^4.2.1
         version: 4.3.0
+      preact:
+        specifier: '>=10.26.10'
+        version: 10.28.2
       vite-bundle-analyzer:
         specifier: ^0.17.0
         version: 0.17.3
       vitepress:
-        specifier: ^1.5.0
-        version: 1.6.3(@algolia/client-search@5.23.4)(@types/node@22.14.1)(async-validator@4.2.5)(less@4.3.0)(postcss@8.5.3)(search-insights@2.17.3)
+        specifier: ^1.6.4
+        version: 1.6.4(@algolia/client-search@5.23.4)(@types/node@22.14.1)(async-validator@4.2.5)(less@4.3.0)(postcss@8.5.3)(search-insights@2.17.3)
 
 packages:
 
@@ -1310,8 +1313,8 @@ packages:
     resolution: {integrity: sha512-dle9A3yYxlBSrt8Fu+IpjGT8SY8hN0mlaA6GY8t0P5PjIOZemULz/E2Bnm/2dcUOena75OTNkHI76uZBNUUq3A==}
     engines: {node: ^10 || ^12 || >=14}
 
-  preact@10.26.5:
-    resolution: {integrity: sha512-fmpDkgfGU6JYux9teDWLhj9mKN55tyepwYbxHgQuIxbWQzgFg5vk7Mrrtfx7xRxq798ynkY4DDDxZr235Kk+4w==}
+  preact@10.28.2:
+    resolution: {integrity: sha512-lbteaWGzGHdlIuiJ0l2Jq454m6kcpI1zNje6d8MlGAFlYvP2GO4ibnat7P74Esfz4sPTdM6UxtTwh/d3pwM9JA==}
 
   property-information@7.0.0:
     resolution: {integrity: sha512-7D/qOz/+Y4X/rzSB6jKxKUsQnphO046ei8qxG59mtM3RG3DHgTK81HrxrmoDVINJb8NKT5ZsRbwHvQ6B68Iyhg==}
@@ -1515,8 +1518,8 @@ packages:
       terser:
         optional: true
 
-  vitepress@1.6.3:
-    resolution: {integrity: sha512-fCkfdOk8yRZT8GD9BFqusW3+GggWYZ/rYncOfmgcDtP3ualNHCAg+Robxp2/6xfH1WwPHtGpPwv7mbA3qomtBw==}
+  vitepress@1.6.4:
+    resolution: {integrity: sha512-+2ym1/+0VVrbhNyRoFFesVvBvHAVMZMK0rw60E3X/5349M1GuVdKeazuksqopEdvkKwKGs21Q729jX81/bkBJg==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4
@@ -1897,7 +1900,7 @@ snapshots:
   '@docsearch/js@3.8.2(@algolia/client-search@5.23.4)(search-insights@2.17.3)':
     dependencies:
       '@docsearch/react': 3.8.2(@algolia/client-search@5.23.4)(search-insights@2.17.3)
-      preact: 10.26.5
+      preact: 10.28.2
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/react'
@@ -2966,7 +2969,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  preact@10.26.5: {}
+  preact@10.28.2: {}
 
   property-information@7.0.0: {}
 
@@ -3191,7 +3194,7 @@ snapshots:
       fsevents: 2.3.3
       less: 4.3.0
 
-  vitepress@1.6.3(@algolia/client-search@5.23.4)(@types/node@22.14.1)(async-validator@4.2.5)(less@4.3.0)(postcss@8.5.3)(search-insights@2.17.3):
+  vitepress@1.6.4(@algolia/client-search@5.23.4)(@types/node@22.14.1)(async-validator@4.2.5)(less@4.3.0)(postcss@8.5.3)(search-insights@2.17.3):
     dependencies:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.23.4)(search-insights@2.17.3)
