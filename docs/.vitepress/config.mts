@@ -62,7 +62,10 @@ export default defineConfig({
             { text: '拓展属性', link: '/demo/extend/demo6' },
             { text: '分组联动', link: '/demo/extend/demo7' },
             { text: '首尾连接', link: '/demo/extend/demo8' },
-            { text: '额外提示', link: '/demo/extend/demo9' },
+            { text: 'tooltip自定义', collapsed: true, items: [
+              { text: '格式化', link: '/demo/extend/demo9/demo9_1' },
+              { text: '额外提示', link: '/demo/extend/demo9/demo9_2' },
+            ]},
             { text: '自定义容器', link: '/demo/extend/demo10' },
           ]},
         ]

@@ -21,8 +21,8 @@ importers:
         specifier: ^3.5.13
         version: 3.5.13
       vue-echarts-linkage:
-        specifier: 2.2.2
-        version: 2.2.2(@types/sortablejs@1.15.8)(vue@3.5.13)
+        specifier: 2.2.4-beta.6
+        version: 2.2.4-beta.6(@types/sortablejs@1.15.8)(vue@3.5.13)
     devDependencies:
       '@types/node':
         specifier: ^22.13.1
@@ -1550,8 +1550,8 @@ packages:
       '@vue/composition-api':
         optional: true
 
-  vue-echarts-linkage@2.2.2:
-    resolution: {integrity: sha512-YIl0L2oMZpiAjlIZ35fZq5ma2aE9zIkHw5YzIOU4t1CDLRXcYVuq4NME4DNCsOb1ClnCYDuPS+WyC1qCFUsTFg==}
+  vue-echarts-linkage@2.2.4-beta.6:
+    resolution: {integrity: sha512-aORtDAOi2FLl6uaLEWuOBzXdZQORV/7ROFahQ/H40IyJv7YbZwjk8z/dZ+b57hDZ+FbIGSNU07ldo2nVlpWQzQ==}
     peerDependencies:
       vue: ^3.4.29
 
@@ -3251,7 +3251,7 @@ snapshots:
     dependencies:
       '@types/sortablejs': 1.15.8
 
-  vue-echarts-linkage@2.2.2(@types/sortablejs@1.15.8)(vue@3.5.13):
+  vue-echarts-linkage@2.2.4-beta.6(@types/sortablejs@1.15.8)(vue@3.5.13):
     dependencies:
       '@element-plus/icons-vue': 2.3.1(vue@3.5.13)
       '@vueuse/core': 10.11.1(vue@3.5.13)
