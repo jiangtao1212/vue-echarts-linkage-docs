@@ -32,7 +32,7 @@ let switchFlag = false;
 const extraOption = {
   legend: {
     left: 'auto',
-    right: '18%',
+    right: '22%',
   }
 }
 

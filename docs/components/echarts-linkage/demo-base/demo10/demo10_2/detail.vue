@@ -7,7 +7,7 @@
   <!-- 可自定义配置显示列数(cols) | 最大图表数(echarts-max-count) | 空白图表数(empty-echart-count) -->
   <VueEchartsLinkage 
     ref="echartsLinkageRef_2" 
-    :cols="2" 
+    :cols="1" 
     :is-echarts-height-change="false"
     :echarts-max-count="10"
     grid-align :theme="theme" :use-graphic-location="false" 
@@ -47,6 +47,9 @@ const extraOption = {
         show: false
       },
       myDeleteButton: {
+        show: false
+      },
+      myRectionLimit: {
         show: false
       }
     }
@@ -170,8 +173,6 @@ const dropEchart = (data: DropEchartType) => {
 }
 
 const init = () => {
-  addLinkageBtnClick();
-  addLinkageBtnClick();
   addLinkageBtnClick();
   addLinkageBtnClick();
 }

@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress';
 import path from 'path';
 import fs from 'fs';
 // import analyzer from 'vite-bundle-analyzer';
+import UnoCSS from 'unocss/vite';
 
 // 获取 lodash 的版本号
 const packageJsonPath = path.resolve(__dirname, '../../node_modules/vue-echarts-linkage/package.json');
@@ -51,6 +52,7 @@ export default defineConfig({
             { text: '工具栏按钮', collapsed: true, items: [
               { text: '放缩功能', link: '/demo/base/demo10/demo10_1' },
               { text: '数据视图', link: '/demo/base/demo10/demo10_2' },
+              { text: 'Y轴区间', link: '/demo/base/demo10/demo10_3' },
             ]},
           ]},
           { text: '拓展示例', items: [ 
@@ -108,6 +110,7 @@ export default defineConfig({
     plugins: [
       // ...your plugin
       // analyzer()
+      UnoCSS()
     ],
     build: {
       rollupOptions: {
